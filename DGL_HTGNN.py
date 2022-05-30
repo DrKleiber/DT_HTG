@@ -55,10 +55,10 @@ model = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, 
 
 # model = nn.Sequential(htgnn, predictor).to(device)
 
-if torch.cuda.device_count() > 1:
-  print("Let's use", torch.cuda.device_count(), "GPUs!")
-  model = nn.DataParallel(model)
-model.to(device)
+# if torch.cuda.device_count() > 1:
+#   print("Let's use", torch.cuda.device_count(), "GPUs!")
+#   model = nn.DataParallel(model)
+# model.to(device)
 
 # early_stopping = EarlyStopping(patience=10, verbose=True, path='{model_out_path}/checkpoint_HTGNN.pt')
 optim = torch.optim.Adam(model.parameters(), lr=1e-4, weight_decay=5e-4)
