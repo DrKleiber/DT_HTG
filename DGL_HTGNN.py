@@ -19,6 +19,7 @@ from utils.pytorchtools import EarlyStopping
 
 from glob import glob
 import random
+import pickle
 # from utils.data import load_data
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -42,6 +43,11 @@ n_classes = {'loop':3, 'core':2, 'pump':1}
 batch_size = 512
 epochs = 500
 
+ckpt_freq = 100
+log_freq = 1
+ckpt_dir = './powerDrop_test/saved_model'
+log_dir = './powerDrop_test/'
+
 graph_template,_ = load_graphs(graph_list[0])
 
 htgnn = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
@@ -49,15 +55,22 @@ predictor = NodePredictor(n_inp=n_hid , n_classes=n_classes,device = device)
 
 model = nn.Sequential(htgnn, predictor).to(device)
 
+# if torch.cuda.device_count() > 1:
+#   print("Let's use", torch.cuda.device_count(), "GPUs!")
+#   model = nn.DataParallel(model)
+# model.to(device)
 
 early_stopping = EarlyStopping(patience=10, verbose=True, path='{model_out_path}/checkpoint_HTGNN.pt')
 optim = torch.optim.Adam(model.parameters(), lr=1e-4, weight_decay=5e-4)
 
-kwargs = {'num_workers': 1,
+kwargs = {'num_workers': 4,
               'pin_memory': True} if torch.cuda.is_available() else {}
-# kwargs = {}
+#kwargs = {}
 
 train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, **kwargs)
+
+logger = {}
+logger['rmse_train'] = []
 
 for epoch in range(epochs):
     model.train()
@@ -100,10 +113,20 @@ for epoch in range(epochs):
         optim.step()
         mse += loss.item()
     
-    mse = mse/(3*11+2*1+2*3)/batch_size
+    mse = mse/(3*11+2*1+2*3)/len(graph_list)
     
     rmse = np.sqrt(mse)
     print('rmse: ', rmse)
+    
+    if (epoch) % ckpt_freq == 0 and epoch!= 0:
+        torch.save(model.state_dict(), ckpt_dir + "/model_epoch{}.pth".format(epoch))
+        
+    if epoch % log_freq == 0:
+#        logger['r2_train'].append(r2_train)
+        logger['rmse_train'].append(rmse)
+        f = open(log_dir + '/' + 'rmse_train.pkl',"wb")
+        pickle.dump(logger['rmse_train'],f)
+        f.close()
 
     # loss, rmse = evaluate(model, val_feats, val_labels)
     # early_stopping(loss, model)

@@ -286,10 +286,12 @@ class NodePredictor(nn.Module):
         :param n_inp      : int, input dimension
         :param n_classes  : dict, output dimension {ntype: int}
         """
-        super().__init__()
+        super(NodePredictor, self).__init__()
         self.device = device
         self.n_inp = n_inp
-        self.n_classes = n_classes 
+        self.n_classes = n_classes
+        self.linearLayer_dict = nn.ModuleDict({ntype: nn.Linear(n_inp, n_classes[ntype]) for ntype in n_classes.keys()})
+
 #        self.fc1 = nn.Linear(n_inp, n_inp)
 #        self.fc2 =  nn.Linear(n_inp, n_classes)
 
@@ -299,12 +301,12 @@ class NodePredictor(nn.Module):
         :param h_dict: dict {ntype: torch.tensor}
         """
         
-        for i in h_dict.keys():
+        for i in h_dict.keys(): # the keys in h_dict is the same as n_classes
 #            fc1 = nn.Linear(self.n_inp, self.n_inp).to(self.device)
-            fc2 = nn.Linear(self.n_inp, self.n_classes[i]).to(self.device)   
+#            fc2 = nn.Linear(self.n_inp, self.n_classes[i]).to(self.device)   
             
 #            h_dict[i] = F.relu(fc1(h_dict[i]))
-            h_dict[i] = fc2(h_dict[i])
+            h_dict[i] = self.linearLayer_dict[i](h_dict[i])
 #            h_dict[i] = F.relu(fc2(h_dict[i]))
         
         return h_dict
