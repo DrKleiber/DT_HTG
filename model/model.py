@@ -79,11 +79,11 @@ class TemporalAgg(nn.Module):
 
 
 class HTGNNLayer(nn.Module):
-    def __init__(self, graph: dgl.DGLGraph, n_inp: dict, n_hid: int, n_heads: int, timeframe: list, norm: bool, device: torch.device, dropout: float):
+    def __init__(self, graph: dgl.DGLGraph, n_inp: int, n_hid: int, n_heads: int, timeframe: list, norm: bool, device: torch.device, dropout: float):
         """
 
         :param graph    : dgl.DGLGraph, a heterogeneous graph
-        :param n_inp    : dict         , input dimension, dict[ntype] = int
+        :param n_inp    : int         , input dimension
         :param n_hid    : int         , hidden dimension
         :param n_heads  : int         , number of attention heads
         :param timeframe: list        , list of time slice
@@ -218,7 +218,9 @@ class HTGNN(nn.Module):
         self.timeframe = [f't{_}' for _ in range(time_window)]
 
         self.adaption_layer = nn.ModuleDict({ntype: nn.Linear(n_inp[ntype], n_hid) for ntype in graph.ntypes})
-        self.gnn_layers     = nn.ModuleList([HTGNNLayer(graph, n_inp['hid'], n_hid, n_heads, self.timeframe, norm, device, dropout) for _ in range(n_layers)])
+#        self.gnn_layers     = nn.ModuleList([HTGNNLayer(graph, n_inp['hid'], n_hid, n_heads, self.timeframe, norm, device, dropout) for _ in range(n_layers)])
+        self.gnn_layers     = nn.ModuleList([HTGNNLayer(graph, n_hid, n_hid, n_heads, self.timeframe, norm, device, dropout) for _ in range(n_layers)])
+        self.linearLayer_dict = nn.ModuleDict({ntype: nn.Linear(n_hid, n_inp[ntype]) for ntype in n_inp.keys()})
 
     def forward(self, graph: dgl.DGLGraph): #, predict_type: str):
         """
@@ -245,8 +247,9 @@ class HTGNN(nn.Module):
         out_feat = {}
         for ntype in graph.ntypes:
             out_feat[ntype] = sum([inp_feat[ntype][ttype] for ttype in self.timeframe])
+            out_feat[ntype] = self.linearLayer_dict[ntype](out_feat[ntype])
 #        out_feat = sum([inp_feat[predict_type][ttype] for ttype in self.timeframe])
-        
+    
         return out_feat
     
 

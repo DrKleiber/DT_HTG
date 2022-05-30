@@ -38,7 +38,7 @@ test_index = list(set(full_index) - set(train_index))
 train_dataset = EBRDataset(graph_list) 
 
 n_hid = 32
-n_input = {'loop':3, 'core':2, 'pump':1, 'hid':n_hid }
+n_input = {'loop':3, 'core':2, 'pump':1}
 n_classes = {'loop':3, 'core':2, 'pump':1}
 batch_size = 512
 epochs = 1000
@@ -50,14 +50,14 @@ log_dir = './powerDrop_test/'
 
 graph_template,_ = load_graphs(graph_list[0])
 
-htgnn = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
-predictor = NodePredictor(n_inp=n_hid , n_classes=n_classes,device = device)
+model = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
+# predictor = NodePredictor(n_inp=n_hid , n_classes=n_classes,device = device)
 
-model = nn.Sequential(htgnn, predictor).to(device)
+# model = nn.Sequential(htgnn, predictor).to(device)
 
 if torch.cuda.device_count() > 1:
   print("Let's use", torch.cuda.device_count(), "GPUs!")
-  model = nn.DataParallel(model)
+  model = nn.DistributedDataParallel(model)
 model.to(device)
 
 # early_stopping = EarlyStopping(patience=10, verbose=True, path='{model_out_path}/checkpoint_HTGNN.pt')
@@ -65,7 +65,7 @@ optim = torch.optim.Adam(model.parameters(), lr=1e-4, weight_decay=5e-4)
 
 kwargs = {'num_workers': 8,
               'pin_memory': True} if torch.cuda.is_available() else {}
-#kwargs = {}
+# kwargs = {}
 
 train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, **kwargs)
 
@@ -96,8 +96,7 @@ for epoch in range(epochs):
             G_target.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(batch_size,1).to(device)
         
         model.zero_grad()
-        h = model[0](G_feat)
-        pred = model[1](h)
+        pred = model(G_feat)
         
         loss = F.mse_loss(pred['loop'], G_target.nodes['loop'].data['feat'], reduction = 'sum')
         loss += F.mse_loss(pred['pump'], G_target.nodes['pump'].data['feat'], reduction = 'sum')
