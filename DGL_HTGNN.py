@@ -29,7 +29,7 @@ mean_std = torch.load('mean_std.pt')
 mean_std['loop_mean'] = mean_std['loop_mean']
 mean_std['loop_std'] = mean_std['loop_std']
 
-graph_list = glob('../data/processed/powerDrop*.bin')[0:2000]
+graph_list = glob('../data/processed/powerDrop*.bin')
 
 full_index = range(len(graph_list))
 train_index = random.sample(range(len(graph_list)),int(0.7*len(graph_list)))
@@ -41,7 +41,7 @@ n_hid = 32
 n_input = {'loop':3, 'core':2, 'pump':1, 'hid':n_hid }
 n_classes = {'loop':3, 'core':2, 'pump':1}
 batch_size = 512
-epochs = 500
+epochs = 1000
 
 ckpt_freq = 100
 log_freq = 1
@@ -55,15 +55,15 @@ predictor = NodePredictor(n_inp=n_hid , n_classes=n_classes,device = device)
 
 model = nn.Sequential(htgnn, predictor).to(device)
 
-# if torch.cuda.device_count() > 1:
-#   print("Let's use", torch.cuda.device_count(), "GPUs!")
-#   model = nn.DataParallel(model)
-# model.to(device)
+if torch.cuda.device_count() > 1:
+  print("Let's use", torch.cuda.device_count(), "GPUs!")
+  model = nn.DataParallel(model)
+model.to(device)
 
-early_stopping = EarlyStopping(patience=10, verbose=True, path='{model_out_path}/checkpoint_HTGNN.pt')
+# early_stopping = EarlyStopping(patience=10, verbose=True, path='{model_out_path}/checkpoint_HTGNN.pt')
 optim = torch.optim.Adam(model.parameters(), lr=1e-4, weight_decay=5e-4)
 
-kwargs = {'num_workers': 4,
+kwargs = {'num_workers': 8,
               'pin_memory': True} if torch.cuda.is_available() else {}
 #kwargs = {}
 
