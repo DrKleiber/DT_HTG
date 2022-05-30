@@ -14,8 +14,8 @@ import torch.nn.functional as F
 import numpy as np
 
 from model.model import HTGNN, NodePredictor
+from utils.HTGDataset import EBRDataset
 from utils.pytorchtools import EarlyStopping
-from utils.HTGDataset import HTGDataset
 
 from glob import glob
 import random
@@ -28,13 +28,13 @@ mean_std = torch.load('mean_std.pt')
 mean_std['loop_mean'] = mean_std['loop_mean']
 mean_std['loop_std'] = mean_std['loop_std']
 
-graph_list = glob('./data/processed/powerDrop*.bin')
+graph_list = glob('../data/processed/powerDrop*.bin')[0:2000]
 
 full_index = range(len(graph_list))
 train_index = random.sample(range(len(graph_list)),int(0.7*len(graph_list)))
 test_index = list(set(full_index) - set(train_index))
 
-train_dataset = HTGDataset(graph_list) 
+train_dataset = EBRDataset(graph_list) 
 
 n_hid = 32
 n_input = {'loop':3, 'core':2, 'pump':1, 'hid':n_hid }
@@ -42,7 +42,9 @@ n_classes = {'loop':3, 'core':2, 'pump':1}
 batch_size = 512
 epochs = 500
 
-htgnn = HTGNN(graph=train_feats[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
+graph_template,_ = load_graphs(graph_list[0])
+
+htgnn = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
 predictor = NodePredictor(n_inp=n_hid , n_classes=n_classes,device = device)
 
 model = nn.Sequential(htgnn, predictor).to(device)
@@ -51,10 +53,11 @@ model = nn.Sequential(htgnn, predictor).to(device)
 early_stopping = EarlyStopping(patience=10, verbose=True, path='{model_out_path}/checkpoint_HTGNN.pt')
 optim = torch.optim.Adam(model.parameters(), lr=1e-4, weight_decay=5e-4)
 
-kwargs = {'num_workers': 4,
+kwargs = {'num_workers': 1,
               'pin_memory': True} if torch.cuda.is_available() else {}
+# kwargs = {}
 
-train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=False, **kwargs)
+train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, **kwargs)
 
 for epoch in range(epochs):
     model.train()
@@ -64,20 +67,20 @@ for epoch in range(epochs):
         G_feat, G_target = G_feat.to(device), G_target.to(device)
         
         for j in G_feat.ndata.keys():
-            G_feat.nodes['loop'].data[j] -= mean_std['loop_mean'].to(device)
-            G_feat.nodes['loop'].data[j] /= mean_std['loop_std'].to(device)            
-            G_feat.nodes['pump'].data[j] -= mean_std['pump_mean'].to(device)
-            G_feat.nodes['pump'].data[j] /= mean_std['pump_std'].to(device)            
-            G_feat.nodes['core'].data[j] -= mean_std['core_mean'].to(device)
-            G_feat.nodes['core'].data[j] /= mean_std['core_std'].to(device)
+            G_feat.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(batch_size,1).to(device)
+            G_feat.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(batch_size,1).to(device)            
+            G_feat.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(batch_size,1).to(device)
+            G_feat.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(batch_size,1).to(device)            
+            G_feat.nodes['core'].data[j] -= mean_std['core_mean'].repeat(batch_size,1).to(device)
+            G_feat.nodes['core'].data[j] /= mean_std['core_std'].repeat(batch_size,1).to(device)
         
         for j in G_target.ndata.keys():
-            G_target.nodes['loop'].data[j] -= mean_std['loop_mean'].to(device)
-            G_target.nodes['loop'].data[j] /= mean_std['loop_std'].to(device)            
-            G_target.nodes['core'].data[j] -= mean_std['core_mean'].to(device)
-            G_target.nodes['core'].data[j] /= mean_std['core_std'].to(device)            
-            G_target.nodes['pump'].data[j] -= mean_std['pump_mean'].to(device)
-            G_target.nodes['pump'].data[j] /= mean_std['pump_std'].to(device)
+            G_target.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(batch_size,1).to(device)
+            G_target.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(batch_size,1).to(device)            
+            G_target.nodes['core'].data[j] -= mean_std['core_mean'].repeat(batch_size,1).to(device)
+            G_target.nodes['core'].data[j] /= mean_std['core_std'].repeat(batch_size,1).to(device)            
+            G_target.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(batch_size,1).to(device)
+            G_target.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(batch_size,1).to(device)
         
         model.zero_grad()
         h = model[0](G_feat)

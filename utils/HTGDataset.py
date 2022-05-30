@@ -7,7 +7,7 @@ Created on Sun May 29 21:53:51 2022
 from dgl.data import DGLDataset
 from dgl.data.utils import load_graphs
 
-class HGTDataset(DGLDataset):
+class EBRDataset(DGLDataset):
     # def __init__(self):
     #     super().__init__()
     #     self.graph_feat = load_graphs('./data/processed/powerDrop_feat.bin')
@@ -27,7 +27,7 @@ class HGTDataset(DGLDataset):
     #     return len(self.graph_feat)
 
     def __init__(self, graph_list):
-        super().__init__()
+#        super().__init__()
         self.graph_list = graph_list
 
     def process(self):
