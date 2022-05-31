@@ -50,8 +50,8 @@ epochs = 1000
 
 ckpt_freq = 100
 log_freq = 1
-ckpt_dir = './powerDrop_01/saved_model'
-log_dir = './powerDrop_01/'
+ckpt_dir = '.cases/powerDrop_01/saved_model'
+log_dir = '.cases/powerDrop_01/'
 
 graph_template,_ = load_graphs(graph_list[0])
 
@@ -178,3 +178,8 @@ def test(epoch):
     # if early_stopping.early_stop:
     #     print("Early stopping")
     #     break
+print('Start training........................................................')
+for epoch in range(epochs + 1):
+    train(epoch)
+    with torch.no_grad():
+        test(epoch)
