@@ -7,4 +7,4 @@
 
 # srun python ./train_MeanStd.py > test.log
 # export PATH=/soft/swing/pytorch/1.10/cuda-11.3/bin:$PATH
-srun python ./HTGNN_train_dist.py > powerDrop_dist_test.log
+srun python -m torch.distributed.run --rdzv_backend=c10d --nnodes=1 --nproc_per_node=2 ./HTGNN_train_dist.py > powerDrop_dist_test.log
