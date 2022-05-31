@@ -33,6 +33,8 @@ def main(rank, world_size, graph_list, seed=0):
     else:
         device = torch.device('cpu')
 
+    model = init_model(seed, device)
+
     mean_std = torch.load('mean_std.pt')
     mean_std['loop_mean'] = mean_std['loop_mean']
     mean_std['loop_std'] = mean_std['loop_std']
@@ -71,8 +73,6 @@ def main(rank, world_size, graph_list, seed=0):
     logger = {}
     logger['rmse_train'] = []
     logger['rmse_test'] = []
-
-    model = init_model(seed, device)
 
     print('Start training........................................................')
     for epoch in range(epochs + 1):
