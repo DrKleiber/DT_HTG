@@ -8,6 +8,7 @@ Created on Tue May 24 14:21:40 2022
 import dgl
 from dgl.data.utils import load_graphs
 
+import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
@@ -81,7 +82,7 @@ def main(rank, world_size, graph_list, seed=0):
 def init_process_group(world_size, rank):
     dist.init_process_group(
         backend='nccl',     # change to 'nccl' for multiple GPUs
-#        init_method='tcp://127.0.0.1:12345',
+        init_method='tcp://127.0.0.1:29500',
         world_size=world_size,
         rank=rank)
 
