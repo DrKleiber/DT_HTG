@@ -33,7 +33,7 @@ def main(rank, world_size, graph_list, seed=0):
     else:
         device = torch.device('cpu')
 
-    model = init_model(seed, device)
+    model = init_model(seed, graph_list[0], device)
 
     mean_std = torch.load('mean_std.pt')
     mean_std['loop_mean'] = mean_std['loop_mean']
@@ -88,9 +88,9 @@ def init_process_group(world_size, rank):
         world_size=world_size,
         rank=rank)
 
-def init_model(seed, device):
+def init_model(seed, graph_name, device):
     torch.manual_seed(seed)
-    graph_template,_ = load_graphs(graph_list[0])
+    graph_template, _ = load_graphs(graph_name)
     model = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
     model = model.to(device)
     if device.type == 'cpu':
