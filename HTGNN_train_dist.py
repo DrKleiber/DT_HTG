@@ -23,6 +23,64 @@ import pickle
 import torch.distributed as dist
 from torch.nn.parallel import DistributedDataParallel
 
+def main(rank, world_size, graph_list, seed=0):
+
+    init_process_group(world_size, rank)
+    print('distributed training initiated!')
+    if torch.cuda.is_available():
+        device = torch.device('cuda:{:d}'.format(rank))
+        torch.cuda.set_device(device)
+    else:
+        device = torch.device('cpu')
+
+    mean_std = torch.load('mean_std.pt')
+    mean_std['loop_mean'] = mean_std['loop_mean']
+    mean_std['loop_std'] = mean_std['loop_std']
+
+    full_index = range(len(graph_list))
+    train_index = random.sample(range(len(graph_list)),int(0.7*len(graph_list)))
+    test_index = list(set(full_index) - set(train_index))
+
+    graph_list_train = [graph_list[i] for i in sorted(train_index)]
+    graph_list_test = [graph_list[i] for i in sorted(test_index)]
+
+    train_dataset = EBRDataset(graph_list_train)
+    test_dataset = EBRDataset(graph_list_test)
+
+    n_hid = 32
+    n_input = {'loop':3, 'core':2, 'pump':1}
+    n_classes = {'loop':3, 'core':2, 'pump':1}
+    batch_size = 512
+    epochs = 1000
+
+    ckpt_freq = 100
+    log_freq = 1
+    ckpt_dir = './powerDrop_test/saved_model'
+    log_dir = './powerDrop_test/'
+
+    optim = torch.optim.Adam(model.parameters(), lr=2e-4, weight_decay=5e-4)
+
+    kwargs = {'num_workers': 8,
+                  'pin_memory': True} if torch.cuda.is_available() else {}
+
+    train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, use_ddp=True, **kwargs)
+    test_loader = dgl.dataloading.GraphDataLoader(test_dataset, batch_size=batch_size,shuffle=True, drop_last=True, **kwargs)
+
+    print('data loaded!')
+
+    logger = {}
+    logger['rmse_train'] = []
+    logger['rmse_test'] = []
+
+    model = init_model(seed, device)
+
+    print('Start training........................................................')
+    for epoch in range(epochs + 1):
+        train(epoch)
+        with torch.no_grad():
+            test(epoch)
+    dist.destroy_process_group()
+
 def init_process_group(world_size, rank):
     dist.init_process_group(
         backend='nccl',     # change to 'nccl' for multiple GPUs
@@ -30,67 +88,20 @@ def init_process_group(world_size, rank):
         world_size=world_size,
         rank=rank)
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-# device = torch.device('cpu')
-
-mean_std = torch.load('mean_std.pt')
-mean_std['loop_mean'] = mean_std['loop_mean']
-mean_std['loop_std'] = mean_std['loop_std']
-
-graph_list = glob('../data/processed/powerDrop*.bin')
-
-full_index = range(len(graph_list))
-train_index = random.sample(range(len(graph_list)),int(0.7*len(graph_list)))
-test_index = list(set(full_index) - set(train_index))
-
-graph_list_train = [graph_list[i] for i in sorted(train_index)]
-graph_list_test = [graph_list[i] for i in sorted(test_index)]
-
-train_dataset = EBRDataset(graph_list_train)
-test_dataset = EBRDataset(graph_list_test)
-
-n_hid = 32
-n_input = {'loop':3, 'core':2, 'pump':1}
-n_classes = {'loop':3, 'core':2, 'pump':1}
-batch_size = 512
-epochs = 1000
-
-ckpt_freq = 100
-log_freq = 1
-ckpt_dir = './powerDrop_test/saved_model'
-log_dir = './powerDrop_test/'
-
-graph_template,_ = load_graphs(graph_list[0])
-
-model = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
-
 def init_model(seed, device):
     torch.manual_seed(seed)
+    graph_template,_ = load_graphs(graph_list[0])
+    model = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
     model = model.to(device)
     if device.type == 'cpu':
         model = DistributedDataParallel(model)
     else:
         model = DistributedDataParallel(model, device_ids=[device], output_device=device)
-
     return model
 
-# early_stopping = EarlyStopping(patience=10, verbose=True, path='{model_out_path}/checkpoint_HTGNN.pt')
-optim = torch.optim.Adam(model.parameters(), lr=1e-4, weight_decay=5e-4)
-
-kwargs = {'num_workers': 8,
-              'pin_memory': True} if torch.cuda.is_available() else {}
-# kwargs = {}
-
-train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, use_ddp=True) #**kwargs)
-test_loader = dgl.dataloading.GraphDataLoader(test_dataset, batch_size=batch_size,shuffle=True, drop_last=True) # **kwargs)
-
-logger = {}
-logger['rmse_train'] = []
-logger['rmse_test'] = []
-
-#for epoch in range(epochs+1):
 def train(epoch):
     model.train()
+    train_loader.set_epoch(epoch)
     mse = 0.
     for _, (G_feat, G_target) in enumerate(train_loader):
 
@@ -118,12 +129,6 @@ def train(epoch):
         loss = F.mse_loss(pred['loop'], G_target.nodes['loop'].data['feat'], reduction = 'sum')
         loss += F.mse_loss(pred['pump'], G_target.nodes['pump'].data['feat'], reduction = 'sum')
         loss += F.mse_loss(pred['core'], G_target.nodes['core'].data['feat'], reduction = 'sum')
-
-        # loss = loss/3
-
-
-        # train_mse_list.append(loss.item())
-        # train_rmse_list.append(rmse.item())
 
         loss.backward()
         optim.step()
@@ -176,14 +181,15 @@ def test(epoch):
     print("epoch: {}, test rmse: {:.6f}".format(epoch, rmse))
 
     if epoch % log_freq == 0:
-#        logger['r2_train'].append(r2_train)
         logger['rmse_test'].append(rmse)
         f = open(log_dir + '/' + 'rmse_test.pkl',"wb")
         pickle.dump(logger['rmse_test'],f)
         f.close()
-    # loss, rmse = evaluate(model, val_feats, val_labels)
-    # early_stopping(loss, model)
 
-    # if early_stopping.early_stop:
-    #     print("Early stopping")
-    #     break
+if __name__ == '__main__':
+   import torch.multiprocessing as mp
+
+   num_gpus = 2
+   procs = []
+   graph_list = glob('../data/processed/powerDrop*.bin')
+   mp.spawn(main, args=(num_gpus, graph_list), nprocs=num_gpus)
