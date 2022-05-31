@@ -49,9 +49,6 @@ def main(rank, world_size, graph_list, seed=0):
     train_dataset = EBRDataset(graph_list_train)
     test_dataset = EBRDataset(graph_list_test)
 
-    n_hid = 32
-    n_input = {'loop':3, 'core':2, 'pump':1}
-    n_classes = {'loop':3, 'core':2, 'pump':1}
     batch_size = 512
     epochs = 1000
 
@@ -91,6 +88,8 @@ def init_process_group(world_size, rank):
 def init_model(seed, graph_name, device):
     torch.manual_seed(seed)
     graph_template, _ = load_graphs(graph_name)
+    n_hid = 32
+    n_input = {'loop':3, 'core':2, 'pump':1}
     model = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
     model = model.to(device)
     if device.type == 'cpu':

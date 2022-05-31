@@ -44,7 +44,6 @@ test_dataset = EBRDataset(graph_list_test)
 
 n_hid = 32
 n_input = {'loop':3, 'core':2, 'pump':1}
-n_classes = {'loop':3, 'core':2, 'pump':1}
 batch_size = 512
 epochs = 1000
 
@@ -56,7 +55,6 @@ log_dir = './cases/powerDrop_01'
 graph_template,_ = load_graphs(graph_list[0])
 
 model = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
-# predictor = NodePredictor(n_inp=n_hid , n_classes=n_classes,device = device)
 
 # model = nn.Sequential(htgnn, predictor).to(device)
 
