@@ -131,7 +131,7 @@ def train(epoch):
     if epoch % log_freq == 0:
 #        logger['r2_train'].append(r2_train)
         logger['rmse_train'].append(rmse)
-        f = open(log_dir + '/' + 'rmse_train.pkl',"wb")
+        f = open(log_dir + '/' + 'rmse_train.pkl',"wb+")
         pickle.dump(logger['rmse_train'],f)
         f.close()
 
@@ -169,7 +169,7 @@ def test(epoch):
     if epoch % log_freq == 0:
 #        logger['r2_train'].append(r2_train)
         logger['rmse_test'].append(rmse)
-        f = open(log_dir + '/' + 'rmse_test.pkl',"wb")
+        f = open(log_dir + '/' + 'rmse_test.pkl',"wb+")
         pickle.dump(logger['rmse_test'],f)
         f.close()
     # loss, rmse = evaluate(model, val_feats, val_labels)
