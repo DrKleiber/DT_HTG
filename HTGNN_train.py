@@ -51,7 +51,7 @@ epochs = 1000
 ckpt_freq = 100
 log_freq = 1
 ckpt_dir = '.cases/powerDrop_01/saved_model'
-log_dir = '.cases/powerDrop_01/'
+log_dir = '.cases/powerDrop_01'
 
 graph_template,_ = load_graphs(graph_list[0])
 
