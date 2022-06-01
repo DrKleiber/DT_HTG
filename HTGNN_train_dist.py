@@ -27,7 +27,7 @@ from torch.nn.parallel import DistributedDataParallel
 def main(rank, world_size, graph_list, seed=0):
 
     init_process_group(world_size, rank)
-    print('distributed training initiated!')
+    print('distributed training initiated with {} gpus'.format(world_size))
     if torch.cuda.is_available():
         device = torch.device('cuda:{:d}'.format(rank))
         torch.cuda.set_device(device)
@@ -55,8 +55,8 @@ def main(rank, world_size, graph_list, seed=0):
 
     ckpt_freq = 100
     log_freq = 1
-    ckpt_dir = './cases/powerDrop_dist/saved_model'
-    log_dir = './cases/powerDrop_dist'
+    ckpt_dir = './cases/powerDrop_dist_2/saved_model'
+    log_dir = './cases/powerDrop_dist_2'
 
     optim = torch.optim.Adam(model.parameters(), lr=2e-4, weight_decay=5e-4)
 
@@ -187,7 +187,7 @@ def init_model(seed, graph_name, device):
 if __name__ == '__main__':
    import torch.multiprocessing as mp
 
-   num_gpus = 2
+   num_gpus = 4
    procs = []
    graph_list = glob('../data/processed/powerDrop*.bin')
    mp.spawn(main, args=(num_gpus, graph_list), nprocs=num_gpus)
