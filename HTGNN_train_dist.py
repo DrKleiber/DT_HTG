@@ -63,8 +63,8 @@ def main(rank, world_size, graph_list, seed=0):
     kwargs = {'num_workers': 8,
                   'pin_memory': True} if torch.cuda.is_available() else {}
 
-    train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, use_ddp=True, **kwargs)
-    test_loader = dgl.dataloading.GraphDataLoader(test_dataset, batch_size=batch_size,shuffle=True, drop_last=True, **kwargs)
+    train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=False, use_ddp=True, **kwargs)
+    test_loader = dgl.dataloading.GraphDataLoader(test_dataset, batch_size=batch_size,shuffle=True, drop_last=False, **kwargs)
 
     print('data loaded!')
 
@@ -82,20 +82,20 @@ def main(rank, world_size, graph_list, seed=0):
             G_feat, G_target = G_feat.to(device), G_target.to(device)
 
             for j in G_feat.ndata.keys():
-                G_feat.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(G_feat.nodes['loop'].data[j].size()[0]/11,1).to(device)
-                G_feat.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(G_feat.nodes['loop'].data[j].size()[0]/11,1).to(device)
-                G_feat.nodes['core'].data[j] -= mean_std['core_mean'].repeat(G_feat.nodes['core'].data[j].size()[0]/3,1).to(device)
-                G_feat.nodes['core'].data[j] /= mean_std['core_std'].repeat(G_feat.nodes['core'].data[j].size()[0]/3,1).to(device)
-                G_feat.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(G_feat.nodes['pump'].data[j].size()[0]/2,1).to(device)
-                G_feat.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(G_feat.nodes['pump'].data[j].size()[0]/2,1).to(device)
+                G_feat.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(int(G_feat.nodes['loop'].data[j].size()[0]/11),1).to(device)
+                G_feat.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(int(G_feat.nodes['loop'].data[j].size()[0]/11),1).to(device)
+                G_feat.nodes['core'].data[j] -= mean_std['core_mean'].repeat(int(G_feat.nodes['core'].data[j].size()[0]/3),1).to(device)
+                G_feat.nodes['core'].data[j] /= mean_std['core_std'].repeat(int(G_feat.nodes['core'].data[j].size()[0]/3),1).to(device)
+                G_feat.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(int(G_feat.nodes['pump'].data[j].size()[0]/2),1).to(device)
+                G_feat.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_feat.nodes['pump'].data[j].size()[0]/2),1).to(device)
 
             for j in G_target.ndata.keys():
-                G_target.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(G_target.nodes['loop'].data[j].size()[0]/11,1).to(device)
-                G_target.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(G_target.nodes['loop'].data[j].size()[0]/11,1).to(device)
-                G_target.nodes['core'].data[j] -= mean_std['core_mean'].repeat(G_target.nodes['core'].data[j].size()[0]/3,1).to(device)
-                G_target.nodes['core'].data[j] /= mean_std['core_std'].repeat(G_target.nodes['core'].data[j].size()[0]/3,1).to(device)
-                G_target.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(G_target.nodes['pump'].data[j].size()[0]/2,1).to(device)
-                G_target.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(G_target.nodes['pump'].data[j].size()[0]/2,1).to(device)
+                G_target.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(int(G_target.nodes['loop'].data[j].size()[0]/11),1).to(device)
+                G_target.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(int(G_target.nodes['loop'].data[j].size()[0]/11),1).to(device)
+                G_target.nodes['core'].data[j] -= mean_std['core_mean'].repeat(int(G_target.nodes['core'].data[j].size()[0]/3),1).to(device)
+                G_target.nodes['core'].data[j] /= mean_std['core_std'].repeat(int(G_target.nodes['core'].data[j].size()[0]/3),1).to(device)
+                G_target.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(int(G_target.nodes['pump'].data[j].size()[0]/2),1).to(device)
+                G_target.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_target.nodes['pump'].data[j].size()[0]/2),1).to(device)
 
             model.zero_grad()
             pred = model(G_feat)
@@ -128,21 +128,22 @@ def main(rank, world_size, graph_list, seed=0):
             mse = 0.
             for _, (G_feat, G_target) in enumerate(test_loader):
                 G_feat, G_target = G_feat.to(device), G_target.to(device)
+                
                 for j in G_feat.ndata.keys():
-                    G_feat.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(G_feat.nodes['loop'].data[j].size()[0]/11,1).to(device)
-                    G_feat.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(G_feat.nodes['loop'].data[j].size()[0]/11,1).to(device)
-                    G_feat.nodes['core'].data[j] -= mean_std['core_mean'].repeat(G_feat.nodes['core'].data[j].size()[0]/3,1).to(device)
-                    G_feat.nodes['core'].data[j] /= mean_std['core_std'].repeat(G_feat.nodes['core'].data[j].size()[0]/3,1).to(device)
-                    G_feat.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(G_feat.nodes['pump'].data[j].size()[0]/2,1).to(device)
-                    G_feat.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(G_feat.nodes['pump'].data[j].size()[0]/2,1).to(device)
-
+                    G_feat.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(int(G_feat.nodes['loop'].data[j].size()[0]/11),1).to(device)
+                    G_feat.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(int(G_feat.nodes['loop'].data[j].size()[0]/11),1).to(device)
+                    G_feat.nodes['core'].data[j] -= mean_std['core_mean'].repeat(int(G_feat.nodes['core'].data[j].size()[0]/3),1).to(device)
+                    G_feat.nodes['core'].data[j] /= mean_std['core_std'].repeat(int(G_feat.nodes['core'].data[j].size()[0]/3),1).to(device)
+                    G_feat.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(int(G_feat.nodes['pump'].data[j].size()[0]/2),1).to(device)
+                    G_feat.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_feat.nodes['pump'].data[j].size()[0]/2),1).to(device)
+    
                 for j in G_target.ndata.keys():
-                    G_target.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(G_target.nodes['loop'].data[j].size()[0]/11,1).to(device)
-                    G_target.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(G_target.nodes['loop'].data[j].size()[0]/11,1).to(device)
-                    G_target.nodes['core'].data[j] -= mean_std['core_mean'].repeat(G_target.nodes['core'].data[j].size()[0]/3,1).to(device)
-                    G_target.nodes['core'].data[j] /= mean_std['core_std'].repeat(G_target.nodes['core'].data[j].size()[0]/3,1).to(device)
-                    G_target.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(G_target.nodes['pump'].data[j].size()[0]/2,1).to(device)
-                    G_target.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(G_target.nodes['pump'].data[j].size()[0]/2,1).to(device)
+                    G_target.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(int(G_target.nodes['loop'].data[j].size()[0]/11),1).to(device)
+                    G_target.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(int(G_target.nodes['loop'].data[j].size()[0]/11),1).to(device)
+                    G_target.nodes['core'].data[j] -= mean_std['core_mean'].repeat(int(G_target.nodes['core'].data[j].size()[0]/3),1).to(device)
+                    G_target.nodes['core'].data[j] /= mean_std['core_std'].repeat(int(G_target.nodes['core'].data[j].size()[0]/3),1).to(device)
+                    G_target.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(int(G_target.nodes['pump'].data[j].size()[0]/2),1).to(device)
+                    G_target.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_target.nodes['pump'].data[j].size()[0]/2),1).to(device)
 
                 pred = model(G_feat)
 
