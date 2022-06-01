@@ -7,4 +7,4 @@
 
 # srun python ./train_MeanStd.py > test.log
 # export PATH=/soft/swing/pytorch/1.10/cuda-11.3/bin:$PATH
-srun torchrun HTGNN_train_dist.py > powerDrop_dist_test.log
+srun torchrun HTGNN_train_dist.py > powerDrop_dist_01.log
