@@ -51,9 +51,9 @@ def main(rank, world_size, graph_list, seed=0):
     test_dataset = EBRDataset(graph_list_test)
 
     batch_size = 512
-    epochs = 1000
+    epochs = 10000
 
-    ckpt_freq = 100
+    ckpt_freq = 1000
     log_freq = 1
     ckpt_dir = './cases/powerDrop_dist_2/saved_model'
     log_dir = './cases/powerDrop_dist_2'
