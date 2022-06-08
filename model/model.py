@@ -30,7 +30,7 @@ class RelationAgg(nn.Module):
 
         return (beta * h).sum(1)
 
-    
+
 class TemporalAgg(nn.Module):
     def __init__(self, n_inp: int, n_hid: int, time_window: int, device: torch.device):
         """
@@ -60,7 +60,7 @@ class TemporalAgg(nn.Module):
                 except:
                     continue
         return pe
-   
+
     def forward(self, x):
         x = x.permute(1,0,2)
         h = self.proj(x)
@@ -68,13 +68,13 @@ class TemporalAgg(nn.Module):
         q = self.q_w(h)
         k = self.k_w(h)
         v = self.v_w(h)
-       
+
         qk = torch.matmul(q, k.permute(0, 2, 1))
         score = F.softmax(qk, dim = -1)
 
         h_ = torch.matmul(score, v)
         h_ = F.relu(self.fc(h_))
-        
+
         return h_
 
 
@@ -92,14 +92,14 @@ class HTGNNLayer(nn.Module):
         :param dropout  : float       , dropout rate
         """
         super(HTGNNLayer, self).__init__()
-        
+
         self.n_inp     = n_inp
         self.n_hid     = n_hid
         self.n_heads   = n_heads
         self.timeframe = timeframe
         self.norm      = norm
         self.dropout   = dropout
-        
+
         # print(graph.canonical_etypes)
         # intra reltion aggregation modules
         self.intra_rel_agg = nn.ModuleDict({
@@ -112,13 +112,13 @@ class HTGNNLayer(nn.Module):
             ttype: RelationAgg(n_hid, n_hid)
             for ttype in timeframe
         })
-        
+
         # inter time aggregation modules
         self.cross_time_agg = nn.ModuleDict({
             ntype: TemporalAgg(n_hid, n_hid, len(timeframe), device)
             for ntype in graph.ntypes
         })
-        
+
         # gate mechanism
         self.res_fc = nn.ModuleDict()
         self.res_weight = nn.ParameterDict()
@@ -127,7 +127,7 @@ class HTGNNLayer(nn.Module):
             self.res_weight[ntype] = nn.Parameter(torch.randn(1))
 
         self.reset_parameters()
-        
+
         # LayerNorm
         if norm:
             self.norm_layer = nn.ModuleDict({ntype: nn.LayerNorm(n_hid) for ntype in graph.ntypes})
@@ -157,11 +157,11 @@ class HTGNNLayer(nn.Module):
             dst_feat = self.intra_rel_agg[etype](rel_graph, (node_features[stype][ttype], node_features[dtype][ttype]))
             # dst_representation (dst_nodes, hid_dim)
             intra_features[ttype][(stype, etype, dtype)] = dst_feat.squeeze()
-        
+
         # different types aggregation
         # inter_features, dict, {'ntype': {ttype: features}}
         inter_features = dict({ntype:{} for ntype in graph.ntypes})
-        
+
         for ttype in intra_features.keys():
             for ntype in graph.ntypes:
                 types_features = []
@@ -172,7 +172,7 @@ class HTGNNLayer(nn.Module):
                 types_features = torch.stack(types_features, dim=1)
                 out_feat = self.inter_rel_agg[ttype](types_features)
                 inter_features[ntype][ttype] = out_feat
-            
+
         # different timestamps aggregation
         # time_features, dict, {'ntype': {'ttype': features}}
         output_features = {}
@@ -182,7 +182,7 @@ class HTGNNLayer(nn.Module):
             time_embeddings = torch.stack(out_emb, dim=0)
             h = self.cross_time_agg[ntype](time_embeddings).permute(1,0,2)
             output_features[ntype] = {ttype: h[i] for (i, ttype) in enumerate(self.timeframe)}
-        
+
         new_features = {}
         for ntype in output_features:
             new_features[ntype] = {}
@@ -243,20 +243,20 @@ class HTGNN(nn.Module):
         # gnn
         for i in range(self.n_layers):
             inp_feat = self.gnn_layers[i](graph, inp_feat)
-        
+
         out_feat = {}
         for ntype in graph.ntypes:
             out_feat[ntype] = sum([inp_feat[ntype][ttype] for ttype in self.timeframe])
             out_feat[ntype] = self.linearLayer_dict[ntype](out_feat[ntype])
 #        out_feat = sum([inp_feat[predict_type][ttype] for ttype in self.timeframe])
-    
+
         return out_feat
-    
+
 
 class LinkPredictor(nn.Module):
     def __init__(self, n_inp: int, n_classes: int):
         """
-    
+
         :param n_inp      : int, input dimension
         :param n_classes  : int, number of classes
         """
@@ -271,21 +271,21 @@ class LinkPredictor(nn.Module):
 
     def forward(self, graph: dgl.DGLGraph, node_feat: torch.tensor):
         """
-        
-        :param graph    : dgl.DGLGraph  
+
+        :param graph    : dgl.DGLGraph
         :param node_feat: torch.tensor
         """
         with graph.local_scope():
             graph.ndata['h'] = node_feat
             graph.apply_edges(self.apply_edges)
-        
+
             return graph.edata['score']
 
 
-class NodePredictor(nn.Module):
+class NodeFuturePredictor(nn.Module):
     def __init__(self, n_inp: int, n_classes: dict, device: torch.device):
         """
-    
+
         :param n_inp      : int, input dimension
         :param n_classes  : dict, output dimension {ntype: int}
         """
@@ -300,16 +300,73 @@ class NodePredictor(nn.Module):
 
     def forward(self, h_dict: dict):
         """
-        
+
         :param h_dict: dict {ntype: torch.tensor}
         """
-        
+
         for i in h_dict.keys(): # the keys in h_dict is the same as n_classes
 #            fc1 = nn.Linear(self.n_inp, self.n_inp).to(self.device)
-#            fc2 = nn.Linear(self.n_inp, self.n_classes[i]).to(self.device)   
-            
+#            fc2 = nn.Linear(self.n_inp, self.n_classes[i]).to(self.device)
+
 #            h_dict[i] = F.relu(fc1(h_dict[i]))
             h_dict[i] = self.linearLayer_dict[i](h_dict[i])
 #            h_dict[i] = F.relu(fc2(h_dict[i]))
-        
+
         return h_dict
+
+class NodeSameTimePredictor(nn.Module):
+        def __init__(self, graph: dgl.DGLGraph, n_inp: dict, n_hid: int, n_layers: int, n_heads: int, time_window: int, norm: bool, device: torch.device, dropout: float = 0.2):
+            """
+
+            :param graph      : dgl.DGLGraph, a dgl heterogeneous graph
+            :param n_inp      : dict         , input dimension, n_inp[ntype]=dict
+            :param n_hid      : int         , hidden dimension
+            :param n_layers   : int         , number of stacked layers
+            :param n_heads    : int         , number of attention heads
+            :param time_window: int         , number of timestamps
+            :param norm       : bool        , use LayerNorm or not
+            :param device     : torch.device, gpu
+            :param dropout    : float       , dropout rate
+            """
+            super(HTGNN, self).__init__()
+
+            self.n_inp     = n_inp
+            self.n_hid     = n_hid
+            self.n_layers  = n_layers
+            self.n_heads   = n_heads
+            self.timeframe = [f't{_}' for _ in range(time_window)]
+
+            self.adaption_layer = nn.ModuleDict({ntype: nn.Linear(n_inp[ntype], n_hid) for ntype in graph.ntypes})
+    #        self.gnn_layers     = nn.ModuleList([HTGNNLayer(graph, n_inp['hid'], n_hid, n_heads, self.timeframe, norm, device, dropout) for _ in range(n_layers)])
+            self.gnn_layers     = nn.ModuleList([HTGNNLayer(graph, n_hid, n_hid, n_heads, self.timeframe, norm, device, dropout) for _ in range(n_layers)])
+            self.linearLayer_dict = nn.ModuleDict({ntype: nn.Linear(n_hid, n_inp[ntype]) for ntype in n_inp.keys()})
+
+        def forward(self, graph: dgl.DGLGraph): #, predict_type: str):
+            """
+
+            :param graph       : dgl.DGLGraph, a dgl heterogeneous graph
+    #        :param predict_type: str         , predicted node type
+            """
+
+            # node feature adaption
+            # inp_feat: dict, {'ntype': {'ttype': features}}
+            inp_feat = {}
+            for ntype in graph.ntypes:
+                inp_feat[ntype] = {}
+                for ttype in self.timeframe:
+                    # print(graph.nodes[ntype].data[ttype].size())
+                    # print(ntype, ttype, graph.nodes[ntype].data[ttype])
+                    inp_feat[ntype][ttype] = self.adaption_layer[ntype](graph.nodes[ntype].data[ttype])
+                    # print(inp_feat[ntype][ttype].size())
+
+            # gnn
+            for i in range(self.n_layers):
+                inp_feat = self.gnn_layers[i](graph, inp_feat)
+
+            out_feat = {}
+            for ntype in graph.ntypes:
+                out_feat[ntype] = {}
+                for ttype in self.timeframe:
+                    out_feat[ntype][ttype] = self.linearLayer_dict[ntype](inp_feat[ntype][ttype])
+
+            return out_feat
