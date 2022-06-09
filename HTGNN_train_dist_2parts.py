@@ -57,8 +57,8 @@ def main(rank, world_size, graph_list, seed=0):
 
     ckpt_freq = 1000
     log_freq = 1
-    ckpt_dir = './cases/powerDrop_dist_2/saved_model'
-    log_dir = './cases/powerDrop_dist_2'
+    ckpt_dir = './cases/powerDrop_dist_2parts_test/saved_model'
+    log_dir = './cases/powerDrop_dist_2parts_test'
 
     optim_0 = torch.optim.Adam(model_0.parameters(), lr=2e-4, weight_decay=5e-4)
     optim_1 = torch.optim.Adam(model_1.parameters(), lr=2e-4, weight_decay=5e-4)
