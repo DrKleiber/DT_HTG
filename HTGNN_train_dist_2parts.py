@@ -272,7 +272,7 @@ def init_model_future(seed, graph_name, device):
 if __name__ == '__main__':
    import torch.multiprocessing as mp
 
-   num_gpus = 6
+   num_gpus = 2
    procs = []
    graph_list = glob('../data/processed/powerDrop*.bin')
    mp.spawn(main, args=(num_gpus, graph_list), nprocs=num_gpus)

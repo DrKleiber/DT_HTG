@@ -2,7 +2,7 @@
 
 #SBATCH --job-name=DT_HTG_2parts
 #SBATCH --nodes=1
-#SBATCH --gres=gpu:6
+#SBATCH --gres=gpu:2
 #SBATCH --time=72:00:00
 
 # srun python ./train_MeanStd.py > test.log
