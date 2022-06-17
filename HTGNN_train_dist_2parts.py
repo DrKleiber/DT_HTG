@@ -37,7 +37,7 @@ def main(rank, world_size, graph_list, seed=0):
 
     model_0 = init_model_current(seed, graph_list[0], device)
     model_1 = init_model_future(seed, graph_list[0], device)
-    
+
     mean_std = torch.load('mean_std.pt')
     mean_std['loop_mean'] = mean_std['loop_mean']
     mean_std['loop_std'] = mean_std['loop_std']
@@ -76,7 +76,7 @@ def main(rank, world_size, graph_list, seed=0):
     logger['rmse_0_test'] = []
     logger['rmse_1_train'] = []
     logger['rmse_1_test'] = []
-    
+
     print('Start training........................................................')
     for epoch in range(epochs + 1):
         train_loader.set_epoch(epoch)
@@ -87,7 +87,7 @@ def main(rank, world_size, graph_list, seed=0):
         for _, (G_feat, G_target) in enumerate(train_loader):
 
             G_feat, G_target = G_feat.to(device), G_target.to(device)
-            
+
             # zero out unknown node information
             # first part of the model is to infer node feature of the current time window
             G_input = copy.deepcopy(G_feat)
@@ -100,7 +100,7 @@ def main(rank, world_size, graph_list, seed=0):
                 G_input.nodes['core'].data[j] /= mean_std['core_std'].repeat(int(G_input.nodes['core'].data[j].size()[0]/3),1).to(device)
                 G_input.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(int(G_input.nodes['pump'].data[j].size()[0]/2),1).to(device)
                 G_input.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_input.nodes['pump'].data[j].size()[0]/2),1).to(device)
-            
+
             for j in G_feat.ndata.keys():
                 G_feat.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(int(G_feat.nodes['loop'].data[j].size()[0]/11),1).to(device)
                 G_feat.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(int(G_feat.nodes['loop'].data[j].size()[0]/11),1).to(device)
@@ -111,17 +111,17 @@ def main(rank, world_size, graph_list, seed=0):
 
             model_0.zero_grad()
             pred_0 = model_0(G_input)
-            
+
             loss_0 = 0.
             for j in G_feat.ndata.keys():
                 loss_0 += F.mse_loss(pred_0['loop'][j], G_feat.nodes['loop'].data[j], reduction = 'sum')
                 loss_0 += F.mse_loss(pred_0['pump'][j], G_feat.nodes['pump'].data[j], reduction = 'sum')
                 loss_0 += F.mse_loss(pred_0['core'][j], G_feat.nodes['core'].data[j], reduction = 'sum')
-            loss_0.backword()
+            loss_0.backward()
             optim_0.step()
             mse_0 += loss_0.item()
-            
-            
+
+
             for j in G_target.ndata.keys():
                 G_target.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(int(G_target.nodes['loop'].data[j].size()[0]/11),1).to(device)
                 G_target.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(int(G_target.nodes['loop'].data[j].size()[0]/11),1).to(device)
@@ -141,7 +141,7 @@ def main(rank, world_size, graph_list, seed=0):
             optim_1.step()
             mse_1 += loss_1.item()
 
-        mse_0 = mse_0/(3*11+2*1+2*3)/len(graph_list_train)/10 
+        mse_0 = mse_0/(3*11+2*1+2*3)/len(graph_list_train)/10
         mse_1 = mse_1/(3*11+2*1+2*3)/len(graph_list_train)
 
         rmse_0 = np.sqrt(mse_0)
@@ -170,7 +170,7 @@ def main(rank, world_size, graph_list, seed=0):
             mse_1 = 0.
             for _, (G_feat, G_target) in enumerate(test_loader):
                 G_feat, G_target = G_feat.to(device), G_target.to(device)
-                
+
                 G_input = copy.deepcopy(G_feat)
                 for j in G_input.ndata.keys():
                     G_input.nodes['loop'].data[j][(0,1,5,6,8,9),:] = 0
@@ -181,7 +181,7 @@ def main(rank, world_size, graph_list, seed=0):
                     G_input.nodes['core'].data[j] /= mean_std['core_std'].repeat(int(G_input.nodes['core'].data[j].size()[0]/3),1).to(device)
                     G_input.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(int(G_input.nodes['pump'].data[j].size()[0]/2),1).to(device)
                     G_input.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_input.nodes['pump'].data[j].size()[0]/2),1).to(device)
-                    
+
                 for j in G_feat.ndata.keys():
                     G_feat.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(int(G_feat.nodes['loop'].data[j].size()[0]/11),1).to(device)
                     G_feat.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(int(G_feat.nodes['loop'].data[j].size()[0]/11),1).to(device)
@@ -189,7 +189,7 @@ def main(rank, world_size, graph_list, seed=0):
                     G_feat.nodes['core'].data[j] /= mean_std['core_std'].repeat(int(G_feat.nodes['core'].data[j].size()[0]/3),1).to(device)
                     G_feat.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(int(G_feat.nodes['pump'].data[j].size()[0]/2),1).to(device)
                     G_feat.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_feat.nodes['pump'].data[j].size()[0]/2),1).to(device)
-               
+
                 pred_0 = model_0(G_input)
                 loss_0 = 0.
                 for j in G_feat.ndata.keys():
@@ -197,7 +197,7 @@ def main(rank, world_size, graph_list, seed=0):
                     loss_0 += F.mse_loss(pred_0['pump'][j], G_feat.nodes['pump'].data[j], reduction = 'sum')
                     loss_0 += F.mse_loss(pred_0['core'][j], G_feat.nodes['core'].data[j], reduction = 'sum')
                 mse_0 += loss_0.item()
-                    
+
 
                 for j in G_target.ndata.keys():
                     G_target.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(int(G_target.nodes['loop'].data[j].size()[0]/11),1).to(device)
@@ -213,10 +213,10 @@ def main(rank, world_size, graph_list, seed=0):
                 loss_1 += F.mse_loss(pred_1['pump'], G_target.nodes['pump'].data['feat'], reduction = 'sum')
                 loss_1 += F.mse_loss(pred_1['core'], G_target.nodes['core'].data['feat'], reduction = 'sum')
                 mse_1 += loss_1.item()
-                
-            mse_0 = mse_0/(3*11+2*1+2*3)/len(graph_list_train)/10  
+
+            mse_0 = mse_0/(3*11+2*1+2*3)/len(graph_list_train)/10
             mse_1 = mse_1/(3*11+2*1+2*3)/len(graph_list_train)
-            
+
             rmse_0 = np.sqrt(mse_0)
             rmse_1 = np.sqrt(mse_1)
             print("epoch: {}, test rmse, current time window: {:.6f}".format(epoch, rmse_0))
