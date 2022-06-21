@@ -228,7 +228,7 @@ def main(rank, world_size, graph_list, seed=0):
                 f = open(log_dir + '/' + 'rmse_0_test.pkl',"wb")
                 pickle.dump(logger['rmse_0_test'],f)
                 f.close()
-                f = open(log_dir + '/' + 'rmse_1_train.pkl',"wb")
+                f = open(log_dir + '/' + 'rmse_1_test.pkl',"wb")
                 pickle.dump(logger['rmse_1_test'],f)
                 f.close()
 
