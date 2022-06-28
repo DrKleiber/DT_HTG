@@ -83,7 +83,11 @@ for j in G_feat.ndata.keys():
     G_feat.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(int(G_feat.nodes['pump'].data[j].size()[0]/2),1).to(device)
     G_feat.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_feat.nodes['pump'].data[j].size()[0]/2),1).to(device)
 
-pred_1 = model_1(G_input)
+pred_1 = model_1(G_feat)
+
+# initialize feature prediction
+CV_1_G.append()
+
 
 for i in graph_list:
         G_feat, _ = load_graphs(i)
@@ -110,3 +114,5 @@ for i in graph_list:
             G_feat.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_feat.nodes['pump'].data[j].size()[0]/2),1).to(device)
 
         pred_1 = model_1(G_input)
+
+        CV_1_G.append()
