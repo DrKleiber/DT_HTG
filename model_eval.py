@@ -16,6 +16,7 @@ from utils.HTGDataset import EBRDataset
 
 import copy
 import numpy as np
+import matplotlib.pyplot as plt
 
 device = torch.device('cuda')
 graph_list = glob('../data/processed/powerDrop*.bin')
@@ -168,7 +169,7 @@ pred_1['loop'] += mean_std['loop_mean'].to(device)
 pred_1['pump'] *= mean_std['pump_std'].to(device)
 pred_1['pump'] += mean_std['pump_mean'].to(device)
 
-for i in graph_list[0:900]:
+for i in graph_list[0:290]:
     G_feat, _ = load_graphs(i)
     G_input = copy.deepcopy(G_feat[0])
     G_input = G_input.to(device)
@@ -279,3 +280,8 @@ for i in graph_list[0:900]:
 #         pred_1 = model_1(G_input)
 
 #         CV_1_G.append()
+
+t = np.linspace(1.,300., 300)
+
+fig,ax = plt.subplots(1,1)
+ax.scatter(t, Ch_A_T)
