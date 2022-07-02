@@ -87,89 +87,89 @@ G_feat, _ = load_graphs(graph_list[0])
 G_input = copy.deepcopy(G_feat[0])
 G_input = G_input.to(device)
 
-# for j in G_input.ndata.keys():
-#     G_input.nodes['loop'].data[j][(0,1,5,6,8,9),:] = 0
-#     G_input.nodes['core'].data[j][:,1] = 0
-#     G_input.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(int(G_input.nodes['loop'].data[j].size()[0]/11),1).to(device)
-#     G_input.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(int(G_input.nodes['loop'].data[j].size()[0]/11),1).to(device)
-#     G_input.nodes['core'].data[j] -= mean_std['core_mean'].repeat(int(G_input.nodes['core'].data[j].size()[0]/3),1).to(device)
-#     G_input.nodes['core'].data[j] /= mean_std['core_std'].repeat(int(G_input.nodes['core'].data[j].size()[0]/3),1).to(device)
-#     G_input.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(int(G_input.nodes['pump'].data[j].size()[0]/2),1).to(device)
-#     G_input.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_input.nodes['pump'].data[j].size()[0]/2),1).to(device)
+for j in G_input.ndata.keys():
+    G_input.nodes['loop'].data[j][(0,1,5,6,8,9),:] = 0
+    G_input.nodes['core'].data[j][:,1] = 0
+    G_input.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(int(G_input.nodes['loop'].data[j].size()[0]/11),1).to(device)
+    G_input.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(int(G_input.nodes['loop'].data[j].size()[0]/11),1).to(device)
+    G_input.nodes['core'].data[j] -= mean_std['core_mean'].repeat(int(G_input.nodes['core'].data[j].size()[0]/3),1).to(device)
+    G_input.nodes['core'].data[j] /= mean_std['core_std'].repeat(int(G_input.nodes['core'].data[j].size()[0]/3),1).to(device)
+    G_input.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(int(G_input.nodes['pump'].data[j].size()[0]/2),1).to(device)
+    G_input.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(int(G_input.nodes['pump'].data[j].size()[0]/2),1).to(device)
 
-# pred_0 = model_0(G_input.to(device))
+pred_0 = model_0(G_input.to(device))
 
-# for j in pred_0['core'].keys():
-#     pred_0['core'][j] *= mean_std['core_std'].to(device)
-#     pred_0['core'][j] += mean_std['core_mean'].to(device)
+for j in pred_0['core'].keys():
+    pred_0['core'][j] *= mean_std['core_std'].to(device)
+    pred_0['core'][j] += mean_std['core_mean'].to(device)
     
-#     Ch_A_P = np.append(Ch_A_P, pred_0['core'][j][0,0].detach().cpu().numpy())
-#     Ch_B_P = np.append(Ch_B_P, pred_0['core'][j][1,0].detach().cpu().numpy())
-#     Ch_P_P = np.append(Ch_P_P, pred_0['core'][j][2,0].detach().cpu().numpy())
-#     Ch_A_T_fuel = np.append(Ch_A_T_fuel, pred_0['core'][j][0,1].detach().cpu().numpy())
-#     Ch_B_T_fuel = np.append(Ch_B_T_fuel, pred_0['core'][j][1,1].detach().cpu().numpy())
-#     Ch_P_T_fuel = np.append(Ch_P_T_fuel, pred_0['core'][j][2,1].detach().cpu().numpy())
+    Ch_A_P = np.append(Ch_A_P, pred_0['core'][j][0,0].detach().cpu().numpy())
+    Ch_B_P = np.append(Ch_B_P, pred_0['core'][j][1,0].detach().cpu().numpy())
+    Ch_P_P = np.append(Ch_P_P, pred_0['core'][j][2,0].detach().cpu().numpy())
+    Ch_A_T_fuel = np.append(Ch_A_T_fuel, pred_0['core'][j][0,1].detach().cpu().numpy())
+    Ch_B_T_fuel = np.append(Ch_B_T_fuel, pred_0['core'][j][1,1].detach().cpu().numpy())
+    Ch_P_T_fuel = np.append(Ch_P_T_fuel, pred_0['core'][j][2,1].detach().cpu().numpy())
     
-# for j in pred_0['loop'].keys():
-#     pred_0['loop'][j] *= mean_std['loop_std'].to(device)
-#     pred_0['loop'][j] += mean_std['loop_mean'].to(device)    
+for j in pred_0['loop'].keys():
+    pred_0['loop'][j] *= mean_std['loop_std'].to(device)
+    pred_0['loop'][j] += mean_std['loop_mean'].to(device)    
     
-#     CV_1_G = np.append(CV_1_G, pred_0['loop'][j][0,0].detach().cpu().numpy())
-#     CV_2_G = np.append(CV_2_G, pred_0['loop'][j][1,0].detach().cpu().numpy())
-#     Ch_A_G = np.append(Ch_A_G, pred_0['loop'][j][2,0].detach().cpu().numpy())
-#     Ch_B_G = np.append(Ch_B_G, pred_0['loop'][j][3,0].detach().cpu().numpy())
-#     Ch_P_G = np.append(Ch_P_G, pred_0['loop'][j][4,0].detach().cpu().numpy())
-#     CV_3_G = np.append(CV_3_G, pred_0['loop'][j][5,0].detach().cpu().numpy())
-#     IHX_G = np.append(IHX_G, pred_0['loop'][j][6,0].detach().cpu().numpy())
-#     CV_4_G = np.append(CV_4_G, pred_0['loop'][j][8,0].detach().cpu().numpy())
+    CV_1_G = np.append(CV_1_G, pred_0['loop'][j][0,0].detach().cpu().numpy())
+    CV_2_G = np.append(CV_2_G, pred_0['loop'][j][1,0].detach().cpu().numpy())
+    Ch_A_G = np.append(Ch_A_G, pred_0['loop'][j][2,0].detach().cpu().numpy())
+    Ch_B_G = np.append(Ch_B_G, pred_0['loop'][j][3,0].detach().cpu().numpy())
+    Ch_P_G = np.append(Ch_P_G, pred_0['loop'][j][4,0].detach().cpu().numpy())
+    CV_3_G = np.append(CV_3_G, pred_0['loop'][j][5,0].detach().cpu().numpy())
+    IHX_G = np.append(IHX_G, pred_0['loop'][j][6,0].detach().cpu().numpy())
+    CV_4_G = np.append(CV_4_G, pred_0['loop'][j][8,0].detach().cpu().numpy())
     
-#     CV_1_p = np.append(CV_1_p, pred_0['loop'][j][0,1].detach().cpu().numpy())
-#     CV_2_p = np.append(CV_2_p, pred_0['loop'][j][1,1].detach().cpu().numpy())
-#     Ch_A_p = np.append(Ch_A_p, pred_0['loop'][j][2,1].detach().cpu().numpy())
-#     Ch_B_p = np.append(Ch_B_p, pred_0['loop'][j][3,1].detach().cpu().numpy())
-#     Ch_P_p = np.append(Ch_P_p, pred_0['loop'][j][4,1].detach().cpu().numpy())
-#     CV_3_p = np.append(CV_3_p, pred_0['loop'][j][5,1].detach().cpu().numpy())
-#     IHX_p = np.append(IHX_p, pred_0['loop'][j][6,1].detach().cpu().numpy())
-#     CV_4_p = np.append(CV_4_p, pred_0['loop'][j][8,1].detach().cpu().numpy())
+    CV_1_p = np.append(CV_1_p, pred_0['loop'][j][0,1].detach().cpu().numpy())
+    CV_2_p = np.append(CV_2_p, pred_0['loop'][j][1,1].detach().cpu().numpy())
+    Ch_A_p = np.append(Ch_A_p, pred_0['loop'][j][2,1].detach().cpu().numpy())
+    Ch_B_p = np.append(Ch_B_p, pred_0['loop'][j][3,1].detach().cpu().numpy())
+    Ch_P_p = np.append(Ch_P_p, pred_0['loop'][j][4,1].detach().cpu().numpy())
+    CV_3_p = np.append(CV_3_p, pred_0['loop'][j][5,1].detach().cpu().numpy())
+    IHX_p = np.append(IHX_p, pred_0['loop'][j][6,1].detach().cpu().numpy())
+    CV_4_p = np.append(CV_4_p, pred_0['loop'][j][8,1].detach().cpu().numpy())
     
-#     CV_1_T = np.append(CV_1_T, pred_0['loop'][j][0,2].detach().cpu().numpy())
-#     CV_2_T = np.append(CV_2_T, pred_0['loop'][j][1,2].detach().cpu().numpy())
-#     Ch_A_T = np.append(Ch_A_T, pred_0['loop'][j][2,2].detach().cpu().numpy())
-#     Ch_B_T = np.append(Ch_B_T, pred_0['loop'][j][3,2].detach().cpu().numpy())
-#     Ch_P_T = np.append(Ch_P_T, pred_0['loop'][j][4,2].detach().cpu().numpy())
-#     CV_3_T = np.append(CV_3_T, pred_0['loop'][j][5,2].detach().cpu().numpy())
-#     IHX_T = np.append(IHX_T, pred_0['loop'][j][6,2].detach().cpu().numpy())
-#     CV_4_T = np.append(CV_4_T, pred_0['loop'][j][8,2].detach().cpu().numpy())
+    CV_1_T = np.append(CV_1_T, pred_0['loop'][j][0,2].detach().cpu().numpy())
+    CV_2_T = np.append(CV_2_T, pred_0['loop'][j][1,2].detach().cpu().numpy())
+    Ch_A_T = np.append(Ch_A_T, pred_0['loop'][j][2,2].detach().cpu().numpy())
+    Ch_B_T = np.append(Ch_B_T, pred_0['loop'][j][3,2].detach().cpu().numpy())
+    Ch_P_T = np.append(Ch_P_T, pred_0['loop'][j][4,2].detach().cpu().numpy())
+    CV_3_T = np.append(CV_3_T, pred_0['loop'][j][5,2].detach().cpu().numpy())
+    IHX_T = np.append(IHX_T, pred_0['loop'][j][6,2].detach().cpu().numpy())
+    CV_4_T = np.append(CV_4_T, pred_0['loop'][j][8,2].detach().cpu().numpy())
 
 
-# for j in pred_0['pump'].keys():
-#     pred_0['pump'][j] *= mean_std['pump_std'].to(device)
-#     pred_0['pump'][j] += mean_std['pump_mean'].to(device)
+for j in pred_0['pump'].keys():
+    pred_0['pump'][j] *= mean_std['pump_std'].to(device)
+    pred_0['pump'][j] += mean_std['pump_mean'].to(device)
     
-#     Pump_0 = np.append(Pump_0, pred_0['pump'][j][0].detach().cpu().numpy())
-#     Pump_1 = np.append(Pump_1, pred_0['pump'][j][1].detach().cpu().numpy())
+    Pump_0 = np.append(Pump_0, pred_0['pump'][j][0].detach().cpu().numpy())
+    Pump_1 = np.append(Pump_1, pred_0['pump'][j][1].detach().cpu().numpy())
 
-# G_input_future = copy.deepcopy(G_feat[0]).to(device)
+G_input_future = copy.deepcopy(G_feat[0]).to(device)
 
-# for j in G_input_future.ndata.keys():
-#     G_input_future.nodes['loop'].data[j] = pred_0['loop'][j]
-#     G_input_future.nodes['core'].data[j] = pred_0['core'][j]
-#     G_input_future.nodes['pump'].data[j] = pred_0['pump'][j]
-#     G_input_future.nodes['loop'].data[j] -= mean_std['loop_mean'].to(device)
-#     G_input_future.nodes['loop'].data[j] /= mean_std['loop_std'].to(device)
-#     G_input_future.nodes['core'].data[j] -= mean_std['core_mean'].to(device)
-#     G_input_future.nodes['core'].data[j] /= mean_std['core_std'].to(device)
-#     G_input_future.nodes['pump'].data[j] -= mean_std['pump_mean'].to(device)
-#     G_input_future.nodes['pump'].data[j] /= mean_std['pump_std'].to(device)
+for j in G_input_future.ndata.keys():
+    G_input_future.nodes['loop'].data[j] = pred_0['loop'][j]
+    G_input_future.nodes['core'].data[j] = pred_0['core'][j]
+    G_input_future.nodes['pump'].data[j] = pred_0['pump'][j]
+    G_input_future.nodes['loop'].data[j] -= mean_std['loop_mean'].to(device)
+    G_input_future.nodes['loop'].data[j] /= mean_std['loop_std'].to(device)
+    G_input_future.nodes['core'].data[j] -= mean_std['core_mean'].to(device)
+    G_input_future.nodes['core'].data[j] /= mean_std['core_std'].to(device)
+    G_input_future.nodes['pump'].data[j] -= mean_std['pump_mean'].to(device)
+    G_input_future.nodes['pump'].data[j] /= mean_std['pump_std'].to(device)
 
-# pred_1 = model_1(G_input_future)
+pred_1 = model_1(G_input_future)
 
-# pred_1['core'] *= mean_std['core_std'].to(device)
-# pred_1['core'] += mean_std['core_mean'].to(device)
-# pred_1['loop'] *= mean_std['loop_std'].to(device)
-# pred_1['loop'] += mean_std['loop_mean'].to(device)
-# pred_1['pump'] *= mean_std['pump_std'].to(device)
-# pred_1['pump'] += mean_std['pump_mean'].to(device)
+pred_1['core'] *= mean_std['core_std'].to(device)
+pred_1['core'] += mean_std['core_mean'].to(device)
+pred_1['loop'] *= mean_std['loop_std'].to(device)
+pred_1['loop'] += mean_std['loop_mean'].to(device)
+pred_1['pump'] *= mean_std['pump_std'].to(device)
+pred_1['pump'] += mean_std['pump_mean'].to(device)
 
 for i in graph_list[0:300]:
     G_feat, _ = load_graphs(i)
@@ -284,7 +284,7 @@ for i in graph_list[0:300]:
 
 #         CV_1_G.append()
 
-t = np.linspace(0.,299., 300)
+t = np.linspace(-10.,299., 310)
 
 sam_files = glob('C:/Users/Yang/Box/ProgramDevelopment/ebr2_sample/transients/ebr2_3chan_powerDrop/workdir.*/ebr2_3chan_powerDrop_csv.csv')
 data_org = pd.read_csv('C:/Users/Yang/Box/ProgramDevelopment/ebr2_sample/transients/ebr2_3chan_powerDrop/workdir.1/ebr2_3chan_powerDrop_csv.csv')
