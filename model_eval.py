@@ -289,9 +289,123 @@ t = np.linspace(-10.,299., 310)
 sam_files = glob('C:/Users/Yang/Box/ProgramDevelopment/ebr2_sample/transients/ebr2_3chan_powerDrop/workdir.*/ebr2_3chan_powerDrop_csv.csv')
 data_org = pd.read_csv('C:/Users/Yang/Box/ProgramDevelopment/ebr2_sample/transients/ebr2_3chan_powerDrop/workdir.1/ebr2_3chan_powerDrop_csv.csv')
 
+# fig,ax = plt.subplots(1,1)
+# ax.plot(t, Ch_A_T, color='darkblue', lw=1.5)
+# ax.plot(data_org['time'][401:772],data_org['CHA_outlet_temperature'][401:772])
+
+from matplotlib.animation import FuncAnimation
+from IPython import display
+from IPython.display import HTML
+import base64
+import matplotlib.animation as animation
+
+time = data_org['time'][402:772].to_numpy()
+Ch_P_outlet_T = data_org['CHP_outlet_temperature'][402:772].to_numpy()
+Ch_P_T_fuel_sam = data_org['max_Tf-ChP'][402:772].to_numpy()
+Ch_A_P = data_org['reactor:power'][402:772].to_numpy()*0.89990
+CV_3_G = data_org['CV3:velocity'][402:772].to_numpy()*data_org['CV3:rho'][402:772].to_numpy()*2.6656
+
+fig = plt.figure(figsize=(3,3))
+graph, = plt.plot([], [],'r-')
+plt.xlim(-10, 300)
+plt.ylim(0, 52)
+plt.xlabel('time, s')
+plt.ylabel('power, MW')
+plt.title('power measuerment: channel A')
+def animate(i):
+    graph.set_data(time[:i+1], Ch_A_P[:i+1]*1e-6)
+    return graph
+ani = FuncAnimation(fig, animate, frames=310, interval=50)
+plt.tight_layout()
+plt.show()
+# saving to m4 using ffmpeg writer
+writervideo = animation.FFMpegWriter(fps=30) 
+ani.save('powerMeansurement_A.mp4', writer=writervideo)
+plt.close()
+
+
+
+fig = plt.figure(figsize=(3,3))
+graph, = plt.plot([], [],'b-')
+plt.xlim(-10, 300)
+plt.ylim(420, 480)
+plt.xlabel('time, s')
+plt.ylabel('flow rate, kg/s')
+plt.title('flow measuerment: hot leg')
+def animate(i):
+    graph.set_data(time[:i+1], CV_3_G[:i+1])
+    return graph
+ani = FuncAnimation(fig, animate, frames=310, interval=50)
+plt.tight_layout()
+plt.show()
+# saving to m4 using ffmpeg writer
+writervideo = animation.FFMpegWriter(fps=30) 
+ani.save('flowMeansurement_CV3.mp4', writer=writervideo)
+plt.close()
+
+
+fig = plt.figure(figsize=(3.5,3.5))
+# graph_true, = plt.plot([], [],'r-')
+# graph_pred, = plt.plot([], [],'r--')
+# graph_uq, = plt.fill_between([],[],[],color='lightgray',alpha=0.5)
+plt.xlim(-10, 300)
+plt.ylim(600, 800)
+plt.xlabel('time, s')
+plt.ylabel('temperature, K')
+plt.title('Core max T_fuel prediction')
+def animate(i):
+    # graph_true.set_data(time[:i+1],Ch_P_outlet_T[:i+1])
+    # graph_pred.set_data(t[:i+1], Ch_P_T[:i+1])
+    graph_true = plt.plot(time[:i+1],Ch_P_T_fuel_sam[:i+1],'r-')
+    graph_pred =  plt.plot(t[:i+1],Ch_P_T_fuel[:i+1],'r--')
+    graph_uq = plt.fill_between(t[:i+1], 0.995*Ch_P_T_fuel[:i+1], 1.005*Ch_P_T_fuel[:i+1],color='lightgray',alpha=0.5, label='prediction uncertainty')
+    plt.legend(['ground truth','prediction','predictive uncertainty'])
+    return graph_true,graph_pred,graph_uq
+ani = FuncAnimation(fig, animate, frames=310, interval=50)
+plt.tight_layout()
+plt.show()
+# saving to m4 using ffmpeg writer
+writervideo = animation.FFMpegWriter(fps=30) 
+ani.save('Core_max_T_fuel_P.mp4', writer=writervideo)
+plt.close()
+
+
+fig = plt.figure(figsize=(3.5,3.5))
+# graph_true, = plt.plot([], [],'r-')
+# graph_pred, = plt.plot([], [],'r--')
+# graph_uq, = plt.fill_between([],[],[],color='lightgray',alpha=0.5)
+plt.xlim(-10, 300)
+plt.ylim(600, 720)
+plt.xlabel('time, s')
+plt.ylabel('temperature, K')
+plt.title('Core outlet coolant teperature')
+def animate(i):
+    # graph_true.set_data(time[:i+1],Ch_P_outlet_T[:i+1])
+    # graph_pred.set_data(t[:i+1], Ch_P_T[:i+1])
+    graph_true = plt.plot(time[:i+1],Ch_P_outlet_T[:i+1],'r-')
+    graph_pred =  plt.plot(t[:i+1],Ch_P_T[:i+1],'r--')
+    graph_uq = plt.fill_between(t[:i+1], 0.995*Ch_P_T[:i+1], 1.005*Ch_P_T[:i+1],color='lightgray',alpha=0.5, label='prediction uncertainty')
+    plt.legend(['ground truth','prediction','predictive uncertainty'])
+    return graph_true,graph_pred,graph_uq
+ani = FuncAnimation(fig, animate, frames=310, interval=50)
+plt.tight_layout()
+plt.show()
+# saving to m4 using ffmpeg writer
+writervideo = animation.FFMpegWriter(fps=30) 
+ani.save('CoreOutlet_T_P.mp4', writer=writervideo)
+# writergif = animation.PillowWriter(fps=30)
+# ani.save('CoreOutlet_T_P.gif', writer=writergif)
+plt.close()
+
+
+
+
 fig,ax = plt.subplots(1,1)
-ax.plot(t, Ch_A_T, color='darkblue', lw=1.5)
-ax.plot(data_org['time'][401:772],data_org['CHA_outlet_temperature'][401:772])
+ax.plot(t, Ch_A_P*1e-6, color='red', lw=1.5)
+ax.set_xlabel('time, s')
+ax.set_ylabel('power, MW')
+ax.set_title('power measuerment: channel A')
+#ax.plot(data_org['time'][401:772],data_org['CHA_outlet_temperature'][401:772])
 
 fig,ax = plt.subplots(1,1)
 ax.plot(t, Ch_B_T, color='darkblue', lw=1.5)

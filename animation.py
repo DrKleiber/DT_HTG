@@ -8,7 +8,7 @@ y = np.random.random(10)
 fig = plt.figure()
 plt.xlim(0, 10)
 plt.ylim(0, 1)
-graph, = plt.plot([], [], 'o')
+graph, = plt.plot([], [], '-')
 
 def animate(i):
     graph.set_data(x[:i+1], y[:i+1])
