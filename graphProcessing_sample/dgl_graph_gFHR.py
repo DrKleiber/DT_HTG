@@ -28,7 +28,7 @@ sam_files = glob('PB-FHR-multi-ss.csv')
 for i in range(len(sam_files)):
     data_org = pd.read_csv(sam_files[i]).round(decimals=4)
 
-    data_org = data_org.loc[data_org['time']>=100]
+    data_org = data_org.loc[data_org['time']>=100].reset_index()
 
     seq_length = data_org['time'].values.shape[0]
 
@@ -37,16 +37,16 @@ for i in range(len(sam_files)):
     for j in range(seq_length):
 
         hetero_dict = {
-            ('loop','flow','loop') : (torch.tensor([0,1,2,3,4,5,5,7,8,9, 10,12,13,14,15,16,17]), 
-                                      torch.tensor([1,2,3,4,5,6,7,8,9,10,12,13,14,15,16,17, 0])),
+            ('loop','flow','loop') : (torch.tensor([0,1,2,3,4,5,6,7,8,9, 11,12,13,14,15,16]), 
+                                      torch.tensor([1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,0 ])),
 
-            ('loop','liquid_heat_liquid','loop') : (torch.tensor([10,11]), torch.tensor([11,10])),
+            ('loop','liquid_heat_liquid','loop') : (torch.tensor([9,10]), torch.tensor([10,9])),
             
-            ('solid','solid_heat_liquid','loop') : (torch.tensor([0,1,2,3,4,5,6,7,8,3 ,4 ,5 ,6 ,7 , 9 ,10,11,12,13]), 
-                                                    torch.tensor([0,1,3,0,1,2,3,4,4,17,16,15,14,13, 13,14,15,16,17])),
+            ('solid','solid_heat_liquid','loop') : (torch.tensor([0,1,2,3,4,5,6,7,3 ,4 ,5 ,6 ,7 , 8 ,9,10,11,12]), 
+                                                    torch.tensor([0,1,3,0,1,2,3,4,16,15,14,13,12, 12,13,14,15,16])),
             
-            ('loop','liquid_heat_solid','solid') : (torch.tensor([0,1,3,0,1,2,3,4,4,17,16,15,14,13, 13,14,15,16,17]),
-                                                    torch.tensor([0,1,2,3,4,5,6,7,8,3 ,4 ,5 ,6 ,7 , 9 ,10,11,12,13])),
+            ('loop','liquid_heat_solid','solid') : (torch.tensor([0,1,3,0,1,2,3,4,16,15,14,13,12, 12,13,14,15,16]),
+                                                    torch.tensor([0,1,2,3,4,5,6,7,3 ,4 ,5 ,6 ,7 , 8 ,9,10,11,12])),
 
             ('core', 'core_heat_liquid', 'loop') : (torch.tensor([0]), torch.tensor([2])),
             
@@ -55,9 +55,87 @@ for i in range(len(sam_files)):
             ('core', 'heatSource', 'core') : (torch.tensor([0]), torch.tensor([0])),
 
             }
+        
+        g = dgl.heterograph(hetero_dict)
 
 
-loop_node_1 = 
+        loop_node_0 = torch.tensor([data_org['Core_flow'][j], data_org['fueling-CPbar'][j], data_org['fueling-CTbar'][j]]).unsqueeze(0).float()   # fueling coolant
+        loop_node_1 = torch.tensor([data_org['Core_flow'][j], data_org['expansion-CPbar'][j], data_org['expansion-CTbar'][j]]).unsqueeze(0).float()   # expansion coolant
+        loop_node_2 = torch.tensor([data_org['Core_flow'][j], data_org['active-CPbar'][j], data_org['active-CTbar'][j]]).unsqueeze(0).float()   # active coolant
+        loop_node_3 = torch.tensor([data_org['Core_flow'][j], data_org['contraction-CPbar'][j], data_org['contraction-CTbar'][j]]).unsqueeze(0).float()   # contraction coolant
+        
+        loop_node_4 = torch.tensor([data_org['pipe040-Vbar'][j]*data_org['Branch030:rho'][j]*0.47,
+                                    data_org['pipe040-Pbar'][j], data_org['pipe040-Tbar'][j]]).unsqueeze(0).float() # pipe-040
+        
+        loop_node_5 = torch.tensor([data_org['pipe050-Vbar'][j]*data_org['Branch260:rho'][j]*0.47,
+                                    data_org['pipe050-Pbar'][j], data_org['pipe050-Tbar'][j]]).unsqueeze(0).float() # pipe-050
+        
+        loop_node_6 = torch.tensor([data_org['pipe060-Vbar'][j]*data_org['Branch501:rho'][j]*0.47,
+                                    data_org['pipe060-Pbar'][j], data_org['pipe060-Tbar'][j]]).unsqueeze(0).float() # pipe-060
+        
+        loop_node_7 = torch.tensor([data_org['Pump:velocity'][j]*data_org['Pump:rho'][j]*0.47,
+                                    data_org['Pump:pressure'][j], data_org['Pump:temperature'][j]]).unsqueeze(0).float() # pump
+        
+        loop_node_8 = torch.tensor([data_org['pipe070-Vbar'][j]*data_org['Branch601:rho'][j]*0.47,
+                                    data_org['pipe070-Pbar'][j], data_org['pipe070-Tbar'][j]]).unsqueeze(0).float() # pipe-070
+        
+        loop_node_9 = torch.tensor([data_org['pipe070-Vbar'][j]*data_org['Branch601:rho'][j]*0.47,
+                                   data_org['HX-SPbar'][j], data_org['HX-STbar'][j]]).unsqueeze(0).float()
+        
+        loop_node_10 = torch.tensor([data_org['secondary-flow'][j],
+                                    data_org['HX-PPbar'][j],
+                                    data_org['HX-PTbar'][j]]).unsqueeze(0).float()
+        
+        loop_node_11 = torch.tensor([data_org['pipe070-Vbar'][j]*data_org['Branch605:rho'][j]*0.47,
+                                    data_org['pipe070-Pbar'][j], data_org['pipe070-Tbar'][j]]).unsqueeze(0).float() # pipe-110
+        
+        loop_node_12 = torch.tensor([data_org['down-40-Vbar'][j]*data_org['Branch607:rho'][j]*0.58,
+                                    data_org['down-40-Pbar'][j], data_org['down-40-Tbar'][j]]).unsqueeze(0).float() # down-40
+        
+        loop_node_13 = torch.tensor([data_org['down-cont-Vbar'][j]*data_org['down-chain:1:junction:rho'][j]*0.58,
+                                    data_org['down-cont-Pbar'][j], data_org['down-cont-Tbar'][j]]).unsqueeze(0).float() # down-cont
+        
+        loop_node_14 = torch.tensor([data_org['down-active-Vbar'][j]*data_org['down-chain:2:junction:rho'][j]*0.58,
+                                    data_org['down-active-Pbar'][j], data_org['down-active-Tbar'][j]]).unsqueeze(0).float() # down-active
+        
+        loop_node_15 = torch.tensor([data_org['down-expan-Vbar'][j]*data_org['down-chain:3:junction:rho'][j]*0.58,
+                                    data_org['down-expan-Pbar'][j], data_org['down-expan-Tbar'][j]]).unsqueeze(0).float() # down-expan
+        
+        loop_node_16 = torch.tensor([data_org['down-fuel-Vbar'][j]*data_org['Branch280:rho'][j]*0.58,
+                                    data_org['down-fuel-Pbar'][j], data_org['down-fuel-Tbar'][j]]).unsqueeze(0).float() # down-fueling
+        
+        core_node = torch.tensor([data_org['reactor:power'][j], data_org['MaxFuel'][j], data_org['MaxSurface'][j]]).unsqueeze(0).float()
+        
+        solid_node_0 = torch.tensor([data_org['fueling-CTsolidbar'][j]]).unsqueeze(0).float()
+        solid_node_1 = torch.tensor([data_org['expansion-CTsolidbar'][j]]).unsqueeze(0).float()
+        solid_node_2 = torch.tensor([data_org['contraction-CTsolidbar'][j]]).unsqueeze(0).float()
+        solid_node_3 = torch.tensor([data_org['fueling-R-HSbar'][j]]).unsqueeze(0).float()
+        solid_node_4 = torch.tensor([data_org['expansion-R-HSbar'][j]]).unsqueeze(0).float()
+        solid_node_5 = torch.tensor([data_org['active-R-HSbar'][j]]).unsqueeze(0).float()
+        solid_node_6 = torch.tensor([data_org['contract-R-HSbar'][j]]).unsqueeze(0).float()
+        solid_node_7 = torch.tensor([data_org['contract-R-HSbar'][j]]).unsqueeze(0).float()
+        solid_node_8 = torch.tensor([data_org['RV-40-HSbar'][j]]).unsqueeze(0).float()
+        solid_node_9 = torch.tensor([data_org['RV-cont-HSbar'][j]]).unsqueeze(0).float()
+        solid_node_10 = torch.tensor([data_org['RV-active-HSbar'][j]]).unsqueeze(0).float()
+        solid_node_11 = torch.tensor([data_org['RV-expan-HSbar'][j]]).unsqueeze(0).float()
+        solid_node_12 = torch.tensor([data_org['RV-fuel-HSbar'][j]]).unsqueeze(0).float()
+        
+        g.nodes['loop'].data['feat'] = torch.cat((loop_node_0, loop_node_1, loop_node_2, loop_node_3,
+                                    loop_node_4, loop_node_5, loop_node_6, loop_node_7,
+                                    loop_node_8, loop_node_9, loop_node_10, loop_node_11, loop_node_12,
+                                    loop_node_13, loop_node_14, loop_node_15, loop_node_16),0)
+        
+        g.nodes['core'].data['feat'] = core_node
+        
+        g.nodes['solid'].data['feat'] = torch.cat((solid_node_0, solid_node_1, solid_node_2, solid_node_3,
+                                                   solid_node_4, solid_node_5, solid_node_6, solid_node_7,
+                                                   solid_node_8, solid_node_9, solid_node_10, solid_node_11,
+                                                   solid_node_12),0)
+    
+        hetero_data.append(g)
+    
+    dgl.save_graphs('./example.bin', hetero_data)
+
 
 
 #         loop_node_0 = torch.tensor([data_org['CV1:velocity'][j]*data_org['CV1:rho'][j]*1.5592,
