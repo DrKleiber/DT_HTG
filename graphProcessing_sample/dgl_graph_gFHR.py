@@ -11,25 +11,23 @@ from glob import glob
 import pandas as pd
 import re
 import numpy as np
+
 # from dgl.data import DGLDataset
 
 # class powerDropDataset(DGLDataset):
 
 # sam_files = glob('Simulation Results/Power_Operational_transients/Power_transient*/gFHR/workdir.*/PB-FHR-multi-ss.csv')
-sam_files = glob('PB-FHR-multi-ss.csv')
-# dakota_files = glob('ebr2_3chan_powerDrop/workdir.*/params.in')
+sam_files = glob('C:/Users/Yang/Box/2022 Summer Projects/gFHR-DT/Simulation Results/Power_Operational_transients/Power_transient10/gFHR/workdir.*/PB-FHR-multi-ss.csv')
 
 # pre_step = [-17.0,-15.0,-13.0,-11.0,-9.0,-7.0,-6.0,-5.0,-3.0,-1.0]
 # time_step = np.linspace(0,300,num=301).tolist()
 # time_step = pre_step + time_step
 
-# time_step = 
 
-for i in range(len(sam_files)):
+for i in range(5): # 5 samples for initial test
+
     data_org = pd.read_csv(sam_files[i]).round(decimals=4)
-
-    data_org = data_org.loc[data_org['time']>=100].reset_index()
-
+    data_org = data_org.loc[data_org['time']>=0].reset_index()
     seq_length = data_org['time'].values.shape[0]
 
     hetero_data = []
@@ -40,17 +38,17 @@ for i in range(len(sam_files)):
             ('loop','flow','loop') : (torch.tensor([0,1,2,3,4,5,6,7,8,9, 11,12,13,14,15,16]), 
                                       torch.tensor([1,2,3,4,5,6,7,8,9,11,12,13,14,15,16,0 ])),
 
-            ('loop','liquid_heat_liquid','loop') : (torch.tensor([9,10]), torch.tensor([10,9])),
+            ('loop','liquid-heat-liquid','loop') : (torch.tensor([9,10]), torch.tensor([10,9])),
             
-            ('solid','solid_heat_liquid','loop') : (torch.tensor([0,1,2,3,4,5,6,7,3 ,4 ,5 ,6 ,7 , 8 ,9,10,11,12]), 
+            ('solid','solid-heat-liquid','loop') : (torch.tensor([0,1,2,3,4,5,6,7,3 ,4 ,5 ,6 ,7 , 8 ,9,10,11,12]), 
                                                     torch.tensor([0,1,3,0,1,2,3,4,16,15,14,13,12, 12,13,14,15,16])),
             
-            ('loop','liquid_heat_solid','solid') : (torch.tensor([0,1,3,0,1,2,3,4,16,15,14,13,12, 12,13,14,15,16]),
+            ('loop','liquid-heat-solid','solid') : (torch.tensor([0,1,3,0,1,2,3,4,16,15,14,13,12, 12,13,14,15,16]),
                                                     torch.tensor([0,1,2,3,4,5,6,7,3 ,4 ,5 ,6 ,7 , 8 ,9,10,11,12])),
 
-            ('core', 'core_heat_liquid', 'loop') : (torch.tensor([0]), torch.tensor([2])),
+            ('core', 'core-heat-liquid', 'loop') : (torch.tensor([0]), torch.tensor([2])),
             
-            ('loop', 'liquid_heat_core', 'core') : (torch.tensor([2]), torch.tensor([0])),
+            ('loop', 'liquid-heat-core', 'core') : (torch.tensor([2]), torch.tensor([0])),
 
             ('core', 'heatSource', 'core') : (torch.tensor([0]), torch.tensor([0])),
 
@@ -134,7 +132,7 @@ for i in range(len(sam_files)):
     
         hetero_data.append(g)
     
-    dgl.save_graphs('./example.bin', hetero_data)
+    dgl.save_graphs('../../data//gFHR/power_transient_10_sample_' + str(i) + '.bin', hetero_data)
 
 
 

@@ -156,26 +156,20 @@ class HTGNNLayer(nn.Module):
             ttype = etype.split('_')[-1]
             dst_feat = self.intra_rel_agg[etype](rel_graph, (node_features[stype][ttype], node_features[dtype][ttype]))
             # dst_representation (dst_nodes, hid_dim)
-            intra_features[ttype][(stype, etype, dtype)] = dst_feat.squeeze(1)
-#            print(ttype, 'stype: ', stype, 'etype: ', etype, 'dtype: ', dtype )
-#            print('tensor size: ',intra_features[ttype][(stype, etype, dtype)].size() )
+            intra_features[ttype][(stype, etype, dtype)] = dst_feat.squeeze()
 
         # different types aggregation
         # inter_features, dict, {'ntype': {ttype: features}}
         inter_features = dict({ntype:{} for ntype in graph.ntypes})
 
         for ttype in intra_features.keys():
-#            print('ttype: ', ttype)
             for ntype in graph.ntypes:
                 types_features = []
                 for stype, etype, dtype in intra_features[ttype]:
-#                    print('ntype: ', ntype, '; dtype: ', dtype)
                     if ntype == dtype:
                         types_features.append(intra_features[ttype][(stype, etype, dtype)])
-#                print('types_features len: ', len(types_features))
-#                print('types_features size: ', types_features[0].size())
+
                 types_features = torch.stack(types_features, dim=1)
-#                print('tensor size: ', types_features.size())   
                 out_feat = self.inter_rel_agg[ttype](types_features)
                 inter_features[ntype][ttype] = out_feat
 
@@ -367,7 +361,6 @@ class NodeSameTimePredictor(nn.Module):
 
             # gnn
             for i in range(self.n_layers):
-#                print("inp_feat:",inp_feat['pump']['t0'].size())
                 inp_feat = self.gnn_layers[i](graph, inp_feat)
 
             out_feat = {}

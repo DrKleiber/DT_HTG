@@ -26,24 +26,14 @@ import torch.distributed as dist
 # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 device = torch.device('cpu')
 
-# mean_std = torch.load('mean_std.pt')
-# mean_std['loop_mean'] = mean_std['loop_mean']
-# mean_std['loop_std'] = mean_std['loop_std']
+# graph_list = glob('../data/processed/*.bin')
+# n_input = {'loop':3, 'core':2, 'pump':2}
 
-graph_list = glob('../data/processed/powerDrop*.bin')
-
-# full_index = range(len(graph_list))
-# train_index = random.sample(range(len(graph_list)),int(0.7*len(graph_list)))
-# test_index = list(set(full_index) - set(train_index))
-
-# graph_list_train = [graph_list[i] for i in sorted(train_index)]
-# graph_list_test = [graph_list[i] for i in sorted(test_index)]
-
-# train_dataset = EBRDataset(graph_list_train)
-# test_dataset = EBRDataset(graph_list_test)
+graph_list = glob('./graphProcessing_sample/processed/*.bin')
+n_input = {'loop':3, 'core':3, 'solid':1}
 
 n_hid = 32
-n_input = {'loop':3, 'core':2, 'pump':1}
+
 
 graph_template,_ = load_graphs(graph_list[0])
 
@@ -80,15 +70,15 @@ G_target = graph_template[1]
 #for epoch in range(epochs+1):
 
 
-G_feat, G_target = G_feat.to(device), G_target.to(device)
+# G_feat, G_target = G_feat.to(device), G_target.to(device)
 
 
-loss = 0.
+# loss = 0.
 
-for j in G_feat.ndata.keys():
-    loss += F.mse_loss(pred_0['loop'][j], G_feat.nodes['loop'].data[j], reduction = 'sum')
-    loss += F.mse_loss(pred_0['pump'][j], G_feat.nodes['pump'].data[j], reduction = 'sum')
-    loss += F.mse_loss(pred_0['core'][j], G_feat.nodes['core'].data[j], reduction = 'sum')
+# for j in G_feat.ndata.keys():
+    # loss += F.mse_loss(pred_0['loop'][j], G_feat.nodes['loop'].data[j], reduction = 'sum')
+    # loss += F.mse_loss(pred_0['pump'][j], G_feat.nodes['pump'].data[j], reduction = 'sum')
+    # loss += F.mse_loss(pred_0['core'][j], G_feat.nodes['core'].data[j], reduction = 'sum')
 
 
 
