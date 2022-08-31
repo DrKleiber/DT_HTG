@@ -17,17 +17,17 @@ import numpy as np
 # class powerDropDataset(DGLDataset):
 
 # sam_files = glob('Simulation Results/Power_Operational_transients/Power_transient*/gFHR/workdir.*/PB-FHR-multi-ss.csv')
-sam_files = glob('C:/Users/Yang/Box/2022 Summer Projects/gFHR-DT/Simulation Results/Power_Operational_transients/Power_transient10/gFHR/workdir.*/PB-FHR-multi-ss.csv')
+sam_files = glob('C:/Users/Yang/Box/2022 Summer Projects/gFHR-DT/Simulation Results/' + 
+                 'IHX_Operational_transients/IHX16/gFHR/workdir.*/PB-FHR-multi-ss.csv')
 
 # pre_step = [-17.0,-15.0,-13.0,-11.0,-9.0,-7.0,-6.0,-5.0,-3.0,-1.0]
 # time_step = np.linspace(0,300,num=301).tolist()
 # time_step = pre_step + time_step
 
-
 for i in range(5): # 5 samples for initial test
 
     data_org = pd.read_csv(sam_files[i]).round(decimals=4)
-    data_org = data_org.loc[data_org['time']>=0].reset_index()
+    data_org = data_org.loc[data_org['time']>=300].reset_index()
     seq_length = data_org['time'].values.shape[0]
 
     hetero_data = []
@@ -132,7 +132,7 @@ for i in range(5): # 5 samples for initial test
     
         hetero_data.append(g)
     
-    dgl.save_graphs('../../data//gFHR/power_transient_10_sample_' + str(i) + '.bin', hetero_data)
+    dgl.save_graphs('../../data//gFHR/IHX_transient_16_sample_' + str(i) + '.bin', hetero_data)
 
 
 

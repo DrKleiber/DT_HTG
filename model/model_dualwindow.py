@@ -156,7 +156,7 @@ class HTGNNLayer(nn.Module):
             ttype = etype.split('_')[-1]
             dst_feat = self.intra_rel_agg[etype](rel_graph, (node_features[stype][ttype], node_features[dtype][ttype]))
             # dst_representation (dst_nodes, hid_dim)
-            intra_features[ttype][(stype, etype, dtype)] = dst_feat.squeeze()
+            intra_features[ttype][(stype, etype, dtype)] = dst_feat.squeeze(1)
 
         # different types aggregation
         # inter_features, dict, {'ntype': {ttype: features}}
@@ -181,6 +181,11 @@ class HTGNNLayer(nn.Module):
             out_emb = [inter_features[ntype][ttype] for ttype in inter_features[ntype]]
             time_embeddings = torch.stack(out_emb, dim=0)
             h = self.cross_time_agg[ntype](time_embeddings).permute(1,0,2)
+            print(h.size())
+            
+            for (i, ttype) in enumerate(self.timeframe):
+                print(ttype)
+                print(h[i].size())
             output_features[ntype] = {ttype: h[i] for (i, ttype) in enumerate(self.timeframe)}
 
         new_features = {}
@@ -196,7 +201,7 @@ class HTGNNLayer(nn.Module):
 
 
 class NodeFuturePredictor(nn.Module):
-    def __init__(self, graph: dgl.DGLGraph, n_inp: dict, n_hid: int, n_layers: int, n_heads: int, time_window: int, norm: bool, device: torch.device, dropout: float = 0.2):
+    def __init__(self, graph: dgl.DGLGraph, n_inp: dict, n_hid: int, n_layers: int, n_heads: int, time_window_tar: int, time_window_inp: int, norm: bool, device: torch.device, dropout: float = 0.2):
         """
 
         :param graph      : dgl.DGLGraph, a dgl heterogeneous graph
@@ -215,7 +220,8 @@ class NodeFuturePredictor(nn.Module):
         self.n_hid     = n_hid
         self.n_layers  = n_layers
         self.n_heads   = n_heads
-        self.timeframe = [f't{_}' for _ in range(time_window)]
+        self.timeframe_inp = [f't{_}' for _ in range(time_window_inp)]
+        self.timeframe_tar = [f't{_}' for _ in range(time_window_tar)]
 
         self.adaption_layer = nn.ModuleDict({ntype: nn.Linear(n_inp[ntype], n_hid) for ntype in graph.ntypes})
 #        self.gnn_layers     = nn.ModuleList([HTGNNLayer(graph, n_inp['hid'], n_hid, n_heads, self.timeframe, norm, device, dropout) for _ in range(n_layers)])
@@ -249,6 +255,12 @@ class NodeFuturePredictor(nn.Module):
             out_feat[ntype] = sum([inp_feat[ntype][ttype] for ttype in self.timeframe])
             out_feat[ntype] = self.linearLayer_dict[ntype](out_feat[ntype])
 #        out_feat = sum([inp_feat[predict_type][ttype] for ttype in self.timeframe])
+
+            out_feat = {}
+            for ntype in graph.ntypes:
+                out_feat[ntype] = {}
+                for ttype in self.timeframe:
+                    out_feat[ntype][ttype] = self.linearLayer_dict[ntype](inp_feat[ntype][ttype])
 
         return out_feat
 
