@@ -14,8 +14,8 @@ import torch.nn.functional as F
 import numpy as np
 
 from model.model import HTGNN, NodePredictor
-from utils.HTGDataset import EBRDataset
-from utils.pytorchtools import EarlyStopping
+from utils.HTGDataset import SAMDataset
+# from utils.pytorchtools import EarlyStopping
 
 from glob import glob
 import random
@@ -39,18 +39,18 @@ test_index = list(set(full_index) - set(train_index))
 graph_list_train = [graph_list[i] for i in sorted(train_index)]
 graph_list_test = [graph_list[i] for i in sorted(test_index)]
 
-train_dataset = EBRDataset(graph_list_train)
-test_dataset = EBRDataset(graph_list_test)
+train_dataset = SAMDataset(graph_list_train)
+test_dataset = SAMDataset(graph_list_test)
 
 n_hid = 32
-n_input = {'loop':3, 'core':2, 'pump':1}
+n_input = {'loop':3, 'core':3, 'solid':1}
 batch_size = 512
 epochs = 1000
 
 ckpt_freq = 100
 log_freq = 1
-ckpt_dir = './cases/powerDrop_01/saved_model'
-log_dir = './cases/powerDrop_01'
+ckpt_dir = './cases/gFHR_test/saved_model'
+log_dir = './cases/gFHR_test'
 
 graph_template,_ = load_graphs(graph_list[0])
 
@@ -88,25 +88,39 @@ def train(epoch):
         for j in G_feat.ndata.keys():
             G_feat.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(batch_size,1).to(device)
             G_feat.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(batch_size,1).to(device)
-            G_feat.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(batch_size,1).to(device)
-            G_feat.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(batch_size,1).to(device)
             G_feat.nodes['core'].data[j] -= mean_std['core_mean'].repeat(batch_size,1).to(device)
             G_feat.nodes['core'].data[j] /= mean_std['core_std'].repeat(batch_size,1).to(device)
+            G_feat.nodes['solid'].data[j] -= mean_std['solid_mean'].repeat(batch_size,1).to(device)
+            G_feat.nodes['solid'].data[j] /= mean_std['solid_std'].repeat(batch_size,1).to(device)
 
         for j in G_target.ndata.keys():
             G_target.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(batch_size,1).to(device)
             G_target.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(batch_size,1).to(device)
             G_target.nodes['core'].data[j] -= mean_std['core_mean'].repeat(batch_size,1).to(device)
             G_target.nodes['core'].data[j] /= mean_std['core_std'].repeat(batch_size,1).to(device)
-            G_target.nodes['pump'].data[j] -= mean_std['pump_mean'].repeat(batch_size,1).to(device)
-            G_target.nodes['pump'].data[j] /= mean_std['pump_std'].repeat(batch_size,1).to(device)
+            G_target.nodes['solid'].data[j] -= mean_std['solid_mean'].repeat(batch_size,1).to(device)
+            G_target.nodes['solid'].data[j] /= mean_std['solid_std'].repeat(batch_size,1).to(device)
 
         model.zero_grad()
         pred = model(G_feat)
 
-        loss = F.mse_loss(pred['loop'], G_target.nodes['loop'].data['feat'], reduction = 'sum')
-        loss += F.mse_loss(pred['pump'], G_target.nodes['pump'].data['feat'], reduction = 'sum')
-        loss += F.mse_loss(pred['core'], G_target.nodes['core'].data['feat'], reduction = 'sum')
+        loss = F.mse_loss(pred['loop']['t0'], G_target.nodes['loop'].data['t0'], reduction = 'sum')
+        loss += F.mse_loss(pred['loop']['t1'], G_target.nodes['loop'].data['t1'], reduction = 'sum')
+        loss += F.mse_loss(pred['loop']['t2'], G_target.nodes['loop'].data['t2'], reduction = 'sum')
+        loss += F.mse_loss(pred['loop']['t3'], G_target.nodes['loop'].data['t3'], reduction = 'sum')
+        loss += F.mse_loss(pred['loop']['t4'], G_target.nodes['loop'].data['t4'], reduction = 'sum')
+
+        loss += F.mse_loss(pred['core']['t0'], G_target.nodes['core'].data['t0'], reduction = 'sum')
+        loss += F.mse_loss(pred['core']['t1'], G_target.nodes['core'].data['t1'], reduction = 'sum')
+        loss += F.mse_loss(pred['core']['t2'], G_target.nodes['core'].data['t2'], reduction = 'sum')
+        loss += F.mse_loss(pred['core']['t3'], G_target.nodes['core'].data['t3'], reduction = 'sum')
+        loss += F.mse_loss(pred['core']['t4'], G_target.nodes['core'].data['t4'], reduction = 'sum')
+
+        loss = F.mse_loss(pred['solid']['t0'], G_target.nodes['solid'].data['t0'], reduction = 'sum')
+        loss += F.mse_loss(pred['solid']['t1'], G_target.nodes['solid'].data['t1'], reduction = 'sum')
+        loss += F.mse_loss(pred['solid']['t2'], G_target.nodes['solid'].data['t2'], reduction = 'sum')
+        loss += F.mse_loss(pred['solid']['t3'], G_target.nodes['solid'].data['t3'], reduction = 'sum')
+        loss += F.mse_loss(pred['solid']['t4'], G_target.nodes['solid'].data['t4'], reduction = 'sum')
 
         # loss = loss/3
 
@@ -156,10 +170,26 @@ def test(epoch):
 
         pred = model(G_feat)
 
-        loss = F.mse_loss(pred['loop'], G_target.nodes['loop'].data['feat'], reduction = 'sum')
-        loss += F.mse_loss(pred['pump'], G_target.nodes['pump'].data['feat'], reduction = 'sum')
-        loss += F.mse_loss(pred['core'], G_target.nodes['core'].data['feat'], reduction = 'sum')
+        loss = F.mse_loss(pred['loop']['t0'], G_target.nodes['loop'].data['t0'], reduction = 'sum')
+        loss += F.mse_loss(pred['loop']['t1'], G_target.nodes['loop'].data['t1'], reduction = 'sum')
+        loss += F.mse_loss(pred['loop']['t2'], G_target.nodes['loop'].data['t2'], reduction = 'sum')
+        loss += F.mse_loss(pred['loop']['t3'], G_target.nodes['loop'].data['t3'], reduction = 'sum')
+        loss += F.mse_loss(pred['loop']['t4'], G_target.nodes['loop'].data['t4'], reduction = 'sum')
+
+        loss += F.mse_loss(pred['core']['t0'], G_target.nodes['core'].data['t0'], reduction = 'sum')
+        loss += F.mse_loss(pred['core']['t1'], G_target.nodes['core'].data['t1'], reduction = 'sum')
+        loss += F.mse_loss(pred['core']['t2'], G_target.nodes['core'].data['t2'], reduction = 'sum')
+        loss += F.mse_loss(pred['core']['t3'], G_target.nodes['core'].data['t3'], reduction = 'sum')
+        loss += F.mse_loss(pred['core']['t4'], G_target.nodes['core'].data['t4'], reduction = 'sum')
+
+        loss = F.mse_loss(pred['solid']['t0'], G_target.nodes['solid'].data['t0'], reduction = 'sum')
+        loss += F.mse_loss(pred['solid']['t1'], G_target.nodes['solid'].data['t1'], reduction = 'sum')
+        loss += F.mse_loss(pred['solid']['t2'], G_target.nodes['solid'].data['t2'], reduction = 'sum')
+        loss += F.mse_loss(pred['solid']['t3'], G_target.nodes['solid'].data['t3'], reduction = 'sum')
+        loss += F.mse_loss(pred['solid']['t4'], G_target.nodes['solid'].data['t4'], reduction = 'sum')
+
         mse += loss.item()
+
     mse = mse/(3*11+2*1+2*3)/len(graph_list_train)
     rmse = np.sqrt(mse)
     print("epoch: {}, test rmse: {:.6f}".format(epoch, rmse))

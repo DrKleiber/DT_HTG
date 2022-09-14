@@ -7,22 +7,22 @@ Created on Sun May 29 21:53:51 2022
 from dgl.data import DGLDataset
 from dgl.data.utils import load_graphs
 
-class EBRDataset(DGLDataset):
+class SAMDataset(DGLDataset):
     # def __init__(self):
     #     super().__init__()
     #     self.graph_feat = load_graphs('./data/processed/powerDrop_feat.bin')
-    #     self.graph_target = load_graphs('./data/processed/powerDrop_target.bin')    
+    #     self.graph_target = load_graphs('./data/processed/powerDrop_target.bin')
     #     if len(self.graph_feat) != len(self.graph_target) :
     #         raise ValueError('length of input list and output list are not the same!')
-            
+
     # def process(self):
     #     pass
-    
-    # def __getitem__(self, i): 
+
+    # def __getitem__(self, i):
     #     feat = self.graph_feat[i]
     #     target = self.graph_target[i]
     #     return feat, target
-    
+
     # def __len__(self):
     #     return len(self.graph_feat)
 
@@ -32,7 +32,7 @@ class EBRDataset(DGLDataset):
 
     def process(self):
         pass
-        
+
     def __getitem__(self, i):
         graph, _ = load_graphs(self.graph_list[i])
         self.feat = graph[0]
