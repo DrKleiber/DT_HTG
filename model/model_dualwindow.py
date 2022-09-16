@@ -171,10 +171,10 @@ class HTGNNLayer(nn.Module):
             rel_graph = graph[stype, etype, dtype]
             reltype = etype.split('_')[0]
             ttype = etype.split('_')[-1]
-            if ttype in self.timeframe:
-                dst_feat = self.intra_rel_agg[etype](rel_graph, (node_features[stype][ttype], node_features[dtype][ttype]))
+#            if ttype in self.timeframe:
+            dst_feat = self.intra_rel_agg[etype](rel_graph, (node_features[stype][ttype], node_features[dtype][ttype]))
                 # dst_representation (dst_nodes, hid_dim)
-                intra_features[ttype][(stype, etype, dtype)] = dst_feat.squeeze(1)
+            intra_features[ttype][(stype, etype, dtype)] = dst_feat.squeeze(1)
 
         # different types aggregation
         # inter_features, dict, {'ntype': {ttype: features}}
@@ -332,7 +332,12 @@ class NodeFuturePredictor(nn.Module):
         self.n_hid     = n_hid
         self.n_layers  = n_layers
         self.n_heads   = n_heads
-                
+        
+        "assume time step is one or two digit(s)"
+        # if time_window_inp > 10:
+        #     self.timeframe_inp = [f't0{_}' for _ in range(10)]
+        #     self.timeframe_inp += [f't{_}' for _ in range(10, time_window_inp)]
+        # else: self.timeframe_inp = [f't{_}' for _ in range(time_window_inp)]
         self.timeframe_inp = [f't{_}' for _ in range(time_window_inp)]
         self.timeframe_tar = [f't{_}' for _ in range(time_window_tar)]
 
@@ -363,7 +368,7 @@ class NodeFuturePredictor(nn.Module):
 
         # gnn
         for i in range(self.n_layers):
-            print(self.timeframe_inp)
+#            print(self.timeframe_inp)
             inp_feat = self.gnn_layers[i](graph, inp_feat)
 
         out_feat = {}
@@ -475,8 +480,12 @@ class NodeSameTimePredictor(nn.Module):
             self.n_hid     = n_hid
             self.n_layers  = n_layers
             self.n_heads   = n_heads
+            
+            # if time_window > 10:
+            #     self.timeframe = [f't0{_}' for _ in range(10)]
+            #     self.timeframe += [f't{_}' for _ in range(10, time_window)]
+            # else: self.timeframe = [f't{_}' for _ in range(time_window)]
             self.timeframe = [f't{_}' for _ in range(time_window)]
-
             self.adaption_layer = nn.ModuleDict({ntype: nn.Linear(n_inp[ntype], n_hid) for ntype in graph.ntypes})
     #        self.gnn_layers     = nn.ModuleList([HTGNNLayer(graph, n_inp['hid'], n_hid, n_heads, self.timeframe, norm, device, dropout) for _ in range(n_layers)])
             self.gnn_layers     = nn.ModuleList([HTGNNLayer(graph, n_hid, n_hid, n_heads, self.timeframe, norm, device, dropout) for _ in range(n_layers)])

@@ -115,9 +115,8 @@ def main(rank, world_size, graph_list, seed=0):
             pred_0 = model_0(G_input)
 
             loss_0 = 0.
-            time_window_inp = 10
-            timeframe_inp = [f't{_}' for _ in range(time_window_inp)]
-            for j in timeframe_inp:
+            
+            for j in G_feat.ndata.keys():
                 loss_0 += F.mse_loss(pred_0['loop'][j], G_feat.nodes['loop'].data[j], reduction = 'sum')
                 loss_0 += F.mse_loss(pred_0['solid'][j], G_feat.nodes['solid'].data[j], reduction = 'sum')
                 loss_0 += F.mse_loss(pred_0['core'][j], G_feat.nodes['core'].data[j], reduction = 'sum')
@@ -233,7 +232,7 @@ def main(rank, world_size, graph_list, seed=0):
                 optim_1.step()
                 mse_1 += loss_1.item()
                     
-            mse_0 = mse_0/(3*17+3*1+1*13)/len(graph_list_train)/10
+            mse_0 = mse_0/(3*17+3*1+1*13)/len(graph_list_train)/20
             mse_1 = mse_1/(3*17+3*1+1*13)/len(graph_list_train)/5
             
             rmse_0 = np.sqrt(mse_0)
@@ -265,7 +264,7 @@ def init_model_current(seed, graph_name, device):
     graph_template, _ = load_graphs(graph_name)
     n_hid = 32
     n_input = {'loop':3, 'core':3, 'solid':1}
-    model = NodeSameTimePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
+    model = NodeSameTimePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=20, norm=False,device = device)
     model = model.to(device)
     if device.type == 'cpu':
         model = DistributedDataParallel(model)
@@ -279,7 +278,7 @@ def init_model_future(seed, graph_name, device):
     graph_template, _ = load_graphs(graph_name)
     n_hid = 32
     n_input = {'loop':3, 'core':3, 'solid':1}
-    model = NodeFuturePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window_inp=10, time_window_tar=5, norm=False, device = device)
+    model = NodeFuturePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window_inp=20, time_window_tar=5, norm=False, device = device)
     model = model.to(device)
     if device.type == 'cpu':
         model = DistributedDataParallel(model)
