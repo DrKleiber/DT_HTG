@@ -30,7 +30,7 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 mean_std = torch.load('mean_std.pt')
 
-graph_list = glob('../data/processed/gFHR/*.bin')
+graph_list = glob('../data/gFHR/processed/*.bin')
 
 full_index = range(len(graph_list))
 train_index = random.sample(range(len(graph_list)),int(0.7*len(graph_list)))
