@@ -37,9 +37,9 @@ n_hid = 32
 
 graph_template,_ = load_graphs(graph_list[0])
 
-model_0 = NodeSameTimePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=1, n_heads=1, time_window=10, norm=False,device = device)
+model_0 = NodeSameTimePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=1, n_heads=1, time_window=20, norm=False,device = device)
 
-model_1 = NodeFuturePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window_inp=10, time_window_tar=5, norm=False,device = device)
+model_1 = NodeFuturePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window_inp=20, time_window_tar=5, norm=False,device = device)
 
 pred_0 = model_0(graph_template[0])
 pred_1 = model_1(graph_template[0])
