@@ -63,8 +63,8 @@ def main(rank, world_size, graph_list, seed=0):
     kwargs = {'num_workers': 8,
                   'pin_memory': True} if torch.cuda.is_available() else {}   
 
-    train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, **kwargs)
-    test_loader = dgl.dataloading.GraphDataLoader(test_dataset, batch_size=batch_size,shuffle=True, drop_last=True, **kwargs)
+    train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, use_ddp = True, **kwargs)
+    test_loader = dgl.dataloading.GraphDataLoader(test_dataset, batch_size=batch_size,shuffle=True, drop_last=True, use_dpp = True, **kwargs)
     
     print('data loaded!')
 
