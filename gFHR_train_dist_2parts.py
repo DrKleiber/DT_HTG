@@ -258,7 +258,7 @@ def init_model_current(seed, graph_name, device):
     torch.manual_seed(seed)
     graph_template, _ = load_graphs(graph_name)
     n_hid = 32
-    n_input = {'loop':3, 'core':3, 'pump':1}
+    n_input = {'loop':3, 'core':3, 'solid':1}
     model = NodeSameTimePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
     model = model.to(device)
     if device.type == 'cpu':
