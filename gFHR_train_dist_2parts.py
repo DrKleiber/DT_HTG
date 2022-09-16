@@ -50,9 +50,9 @@ def main(rank, world_size, graph_list, seed=0):
     test_dataset = SAMDataset(graph_list_test)
     
     batch_size = 512
-    epochs = 10000
+    epochs = 1000
 
-    ckpt_freq = 1000
+    ckpt_freq = 200
     log_freq = 1
     ckpt_dir = './cases/gFHR_test/saved_model'
     log_dir = './cases/gFHR_test'
