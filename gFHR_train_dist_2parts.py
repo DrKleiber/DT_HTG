@@ -93,7 +93,7 @@ def main(rank, world_size, graph_list, seed=0):
             for j in G_input.ndata.keys():
                 G_input.nodes['loop'].data[j][(0,1,2,4,5,7,8,9,11),:] = 0.
                 G_input.nodes['core'].data[j][:,(1,2)] = 0.
-                G_input.nodes['solid'].data[j] = 0
+                G_input.nodes['solid'].data[j] = 0.
                 G_input.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(batch_size,1).to(device)
                 G_input.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(batch_size,1).to(device)
                 G_input.nodes['core'].data[j] -= mean_std['core_mean'].repeat(batch_size,1).to(device)
@@ -181,7 +181,7 @@ def main(rank, world_size, graph_list, seed=0):
                 for j in G_input.ndata.keys():
                     G_input.nodes['loop'].data[j][(0,1,2,4,5,7,8,9,11),:] = 0.
                     G_input.nodes['core'].data[j][:,(1,2)] = 0.
-                    G_input.nodes['solid'].data[j] = 0
+                    G_input.nodes['solid'].data[j] = 0.
                     G_input.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(batch_size,1).to(device)
                     G_input.nodes['loop'].data[j] /= mean_std['loop_std'].repeat(batch_size,1).to(device)
                     G_input.nodes['core'].data[j] -= mean_std['core_mean'].repeat(batch_size,1).to(device)
