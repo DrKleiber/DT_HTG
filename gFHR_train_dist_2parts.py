@@ -63,8 +63,8 @@ def main(rank, world_size, graph_list, seed=0):
     kwargs = {'num_workers': 8,
                   'pin_memory': True} if torch.cuda.is_available() else {}   
 
-    train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, use_ddp = True, **kwargs)
-    test_loader = dgl.dataloading.GraphDataLoader(test_dataset, batch_size=batch_size,shuffle=True, drop_last=True, use_ddp = True, **kwargs)
+    train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, use_ddp = False, **kwargs)
+    test_loader = dgl.dataloading.GraphDataLoader(test_dataset, batch_size=batch_size,shuffle=True, drop_last=True, use_ddp = False, **kwargs)
     
     print('data loaded!')
 
@@ -76,7 +76,7 @@ def main(rank, world_size, graph_list, seed=0):
     
     print('Start training........................................................')
     for epoch in range(epochs + 1):
-        train_loader.set_epoch(epoch)
+#        train_loader.set_epoch(epoch)
         model_0.train()
         model_1.train()
         mse_0 = 0.
