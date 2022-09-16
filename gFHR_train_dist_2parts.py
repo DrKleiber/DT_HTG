@@ -100,6 +100,8 @@ def main(rank, world_size, graph_list, seed=0):
                 G_input.nodes['core'].data[j] /= mean_std['core_std'].repeat(batch_size,1).to(device)
                 G_input.nodes['solid'].data[j] -= mean_std['solid_mean'].repeat(batch_size,1).to(device)
                 G_input.nodes['solid'].data[j] /= mean_std['solid_std'].repeat(batch_size,1).to(device)
+                
+            
     
             for j in G_feat.ndata.keys():
                 G_feat.nodes['loop'].data[j] -= mean_std['loop_mean'].repeat(batch_size,1).to(device)
@@ -113,7 +115,9 @@ def main(rank, world_size, graph_list, seed=0):
             pred_0 = model_0(G_input)
 
             loss_0 = 0.
-            for j in G_feat.ndata.keys():
+            time_window_inp = 10
+            timeframe_inp = [f't{_}' for _ in range(time_window_inp)]
+            for j in timeframe_inp:
                 loss_0 += F.mse_loss(pred_0['loop'][j], G_feat.nodes['loop'].data[j], reduction = 'sum')
                 loss_0 += F.mse_loss(pred_0['solid'][j], G_feat.nodes['solid'].data[j], reduction = 'sum')
                 loss_0 += F.mse_loss(pred_0['core'][j], G_feat.nodes['core'].data[j], reduction = 'sum')
@@ -200,7 +204,9 @@ def main(rank, world_size, graph_list, seed=0):
                 pred_0 = model_0(G_input)
 
                 loss_0 = 0.
-                for j in G_feat.ndata.keys():
+                time_window_inp = 10
+                timeframe_inp = [f't{_}' for _ in range(time_window_inp)]
+                for j in timeframe_inp:
                     loss_0 += F.mse_loss(pred_0['loop'][j], G_feat.nodes['loop'].data[j], reduction = 'sum')
                     loss_0 += F.mse_loss(pred_0['solid'][j], G_feat.nodes['solid'].data[j], reduction = 'sum')
                     loss_0 += F.mse_loss(pred_0['core'][j], G_feat.nodes['core'].data[j], reduction = 'sum')
