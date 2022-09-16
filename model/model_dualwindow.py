@@ -6,7 +6,7 @@ from tqdm import tqdm
 from dgl.nn.pytorch import GATConv
 import numpy as np
 import math
-
+import copy
 
 class RelationAgg(nn.Module):
     def __init__(self, n_inp: int, n_hid: int):
@@ -171,9 +171,10 @@ class HTGNNLayer(nn.Module):
             rel_graph = graph[stype, etype, dtype]
             reltype = etype.split('_')[0]
             ttype = etype.split('_')[-1]
-            dst_feat = self.intra_rel_agg[etype](rel_graph, (node_features[stype][ttype], node_features[dtype][ttype]))
-            # dst_representation (dst_nodes, hid_dim)
-            intra_features[ttype][(stype, etype, dtype)] = dst_feat.squeeze(1)
+            if ttype in self.timeframe:
+                dst_feat = self.intra_rel_agg[etype](rel_graph, (node_features[stype][ttype], node_features[dtype][ttype]))
+                # dst_representation (dst_nodes, hid_dim)
+                intra_features[ttype][(stype, etype, dtype)] = dst_feat.squeeze(1)
 
         # different types aggregation
         # inter_features, dict, {'ntype': {ttype: features}}
@@ -340,8 +341,8 @@ class NodeFuturePredictor(nn.Module):
         self.gnn_layers     = nn.ModuleList([HTGNNLayer(graph, n_hid, n_hid, n_heads, self.timeframe_inp, norm, device, dropout) for _ in range(n_layers)])
         self.linear_node_dict_tar = nn.ModuleDict({ntype: nn.Linear(n_hid, n_inp[ntype]) for ntype in n_inp.keys()})
         self.linear_time_dict_tar = nn.ModuleDict({ttype: self.linear_node_dict_tar for ttype in self.timeframe_tar})
-        self.linear_node_dict_hid = nn.ModuleDict({ntype: nn.Linear(n_hid, n_hid) for ntype in n_inp.keys()})
-        self.linear_time_dict_hid = nn.ModuleDict({ttype: self.linear_node_dict_hid for ttype in self.timeframe_tar})
+        # self.linear_node_dict_hid = nn.ModuleDict({ntype: nn.Linear(n_hid, n_hid) for ntype in n_inp.keys()})
+        # self.linear_time_dict_hid = nn.ModuleDict({ttype: self.linear_node_dict_hid for ttype in self.timeframe_tar})
     def forward(self, graph: dgl.DGLGraph): #, predict_type: str):
         """
 
@@ -362,6 +363,7 @@ class NodeFuturePredictor(nn.Module):
 
         # gnn
         for i in range(self.n_layers):
+            print(self.timeframe_inp)
             inp_feat = self.gnn_layers[i](graph, inp_feat)
 
         out_feat = {}
@@ -372,12 +374,12 @@ class NodeFuturePredictor(nn.Module):
             for ttype_tar in self.timeframe_tar:
                 
                 tmp[ntype] = sum([inp_feat[ntype][ttype_inp] for ttype_inp in timeframe_temporal])
-                out_feat[ntype][ttype_tar] = self.linear_time_dict_hid[ttype_tar][ntype](tmp[ntype])
+                # out_feat[ntype][ttype_tar] = self.linear_time_dict_hid[ttype_tar][ntype](tmp[ntype])
 
-                tmp[ntype] += out_feat[ntype][ttype_tar]
-                timeframe_temporal.pop(0)
+#                tmp[ntype] += out_feat[ntype][ttype_tar]
                 
-                out_feat[ntype][ttype_tar] = self.linear_time_dict_tar[ttype_tar][ntype](out_feat[ntype][ttype_tar])
+                out_feat[ntype][ttype_tar] = self.linear_time_dict_tar[ttype_tar][ntype](tmp[ntype])
+#                timeframe_temporal.pop(0)
             
             # out_feat[ntype] = sum([inp_feat[ntype][ttype] for ttype in self.timeframe_inp])
             # out_feat[ntype] = self.linearLayer_dict[ntype](out_feat[ntype])

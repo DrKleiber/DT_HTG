@@ -13,7 +13,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 import numpy as np
 
-from model.model import HTGNN, NodePredictor
+from model.model_dualwindow import NodeFuturePredictor, NodeSameTimePredictor
 from utils.HTGDataset import SAMDataset
 # from utils.pytorchtools import EarlyStopping
 
@@ -27,10 +27,10 @@ device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 # device = torch.device('cpu')
 
 mean_std = torch.load('mean_std.pt')
-mean_std['loop_mean'] = mean_std['loop_mean']
-mean_std['loop_std'] = mean_std['loop_std']
+# mean_std['loop_mean'] = mean_std['loop_mean']
+# mean_std['loop_std'] = mean_std['loop_std']
 
-graph_list = glob('../data/processed/powerDrop*.bin')
+graph_list = glob('../data/gFHR/processed/*.bin')
 
 full_index = range(len(graph_list))
 train_index = random.sample(range(len(graph_list)),int(0.7*len(graph_list)))
@@ -54,7 +54,7 @@ log_dir = './cases/gFHR_test'
 
 graph_template,_ = load_graphs(graph_list[0])
 
-model = HTGNN(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=10, norm=False,device = device)
+model = NodeFuturePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window_inp=10, time_window_tar=5, norm=False,device = device)
 
 # model = nn.Sequential(htgnn, predictor).to(device)
 
@@ -66,9 +66,9 @@ model.to(device)
 # early_stopping = EarlyStopping(patience=10, verbose=True, path='{model_out_path}/checkpoint_HTGNN.pt')
 optim = torch.optim.Adam(model.parameters(), lr=1e-4, weight_decay=5e-4)
 
-kwargs = {'num_workers': 8,
-              'pin_memory': True} if torch.cuda.is_available() else {}
-# kwargs = {}
+# kwargs = {'num_workers': 8,
+#               'pin_memory': True} if torch.cuda.is_available() else {}
+kwargs = {}
 
 train_loader = dgl.dataloading.GraphDataLoader(train_dataset, batch_size=batch_size,shuffle=True, drop_last=True, **kwargs)
 test_loader = dgl.dataloading.GraphDataLoader(test_dataset, batch_size=batch_size,shuffle=True, drop_last=True, **kwargs)
