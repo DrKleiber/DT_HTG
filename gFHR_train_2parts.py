@@ -55,7 +55,7 @@ log_dir = './cases/gFHR_test'
 
 graph_template,_ = load_graphs(graph_list[0])
 
-model_0 = NodeSameTimePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=1, n_heads=1, time_window=20, norm=False,device = device)
+model_0 = NodeSameTimePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window=20, norm=False,device = device)
 model_1 = NodeFuturePredictor(graph=graph_template[0], n_inp=n_input, n_hid=n_hid , n_layers=2, n_heads=1, time_window_inp=20, time_window_tar=5, norm=False,device = device)
 
 model_0.to(device)
