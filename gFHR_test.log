@@ -1,0 +1,1262 @@
+data loaded!
+Start training........................................................
+epoch: 0, train rmse, current time window: 32.498073
+epoch: 0, train rmse, future_state: 52.208421
+epoch: 0, test rmse, current time window: 9.733642
+epoch: 0, test rmse, future_state: 5.102156
+epoch: 1, train rmse, current time window: 19.794957
+epoch: 1, train rmse, future_state: 6.556707
+epoch: 1, test rmse, current time window: 8.653600
+epoch: 1, test rmse, future_state: 3.538982
+epoch: 2, train rmse, current time window: 18.400751
+epoch: 2, train rmse, future_state: 4.653262
+epoch: 2, test rmse, current time window: 7.693062
+epoch: 2, test rmse, future_state: 2.539004
+epoch: 3, train rmse, current time window: 17.216948
+epoch: 3, train rmse, future_state: 3.586648
+epoch: 3, test rmse, current time window: 7.571608
+epoch: 3, test rmse, future_state: 2.017449
+epoch: 4, train rmse, current time window: 16.575788
+epoch: 4, train rmse, future_state: 3.035693
+epoch: 4, test rmse, current time window: 7.144574
+epoch: 4, test rmse, future_state: 1.726571
+epoch: 5, train rmse, current time window: 15.688795
+epoch: 5, train rmse, future_state: 2.683715
+epoch: 5, test rmse, current time window: 6.623017
+epoch: 5, test rmse, future_state: 1.531096
+epoch: 6, train rmse, current time window: 15.037149
+epoch: 6, train rmse, future_state: 2.446122
+epoch: 6, test rmse, current time window: 6.612941
+epoch: 6, test rmse, future_state: 1.428341
+epoch: 7, train rmse, current time window: 14.729137
+epoch: 7, train rmse, future_state: 2.284021
+epoch: 7, test rmse, current time window: 6.248764
+epoch: 7, test rmse, future_state: 1.356997
+epoch: 8, train rmse, current time window: 13.709649
+epoch: 8, train rmse, future_state: 2.166225
+epoch: 8, test rmse, current time window: 5.705705
+epoch: 8, test rmse, future_state: 1.300872
+epoch: 9, train rmse, current time window: 13.205466
+epoch: 9, train rmse, future_state: 2.084008
+epoch: 9, test rmse, current time window: 5.757369
+epoch: 9, test rmse, future_state: 1.263948
+epoch: 10, train rmse, current time window: 13.051724
+epoch: 10, train rmse, future_state: 2.024792
+epoch: 10, test rmse, current time window: 5.606124
+epoch: 10, test rmse, future_state: 1.234887
+epoch: 11, train rmse, current time window: 12.636757
+epoch: 11, train rmse, future_state: 1.976778
+epoch: 11, test rmse, current time window: 5.430591
+epoch: 11, test rmse, future_state: 1.202842
+epoch: 12, train rmse, current time window: 12.189887
+epoch: 12, train rmse, future_state: 1.938859
+epoch: 12, test rmse, current time window: 5.208127
+epoch: 12, test rmse, future_state: 1.179084
+epoch: 13, train rmse, current time window: 11.660789
+epoch: 13, train rmse, future_state: 1.907958
+epoch: 13, test rmse, current time window: 4.849653
+epoch: 13, test rmse, future_state: 1.167583
+epoch: 14, train rmse, current time window: 11.295391
+epoch: 14, train rmse, future_state: 1.881431
+epoch: 14, test rmse, current time window: 4.573469
+epoch: 14, test rmse, future_state: 1.152173
+epoch: 15, train rmse, current time window: 10.794208
+epoch: 15, train rmse, future_state: 1.857566
+epoch: 15, test rmse, current time window: 4.378801
+epoch: 15, test rmse, future_state: 1.137750
+epoch: 16, train rmse, current time window: 10.329539
+epoch: 16, train rmse, future_state: 1.833352
+epoch: 16, test rmse, current time window: 4.184011
+epoch: 16, test rmse, future_state: 1.117778
+epoch: 17, train rmse, current time window: 9.847403
+epoch: 17, train rmse, future_state: 1.815677
+epoch: 17, test rmse, current time window: 3.879754
+epoch: 17, test rmse, future_state: 1.114431
+epoch: 18, train rmse, current time window: 9.519395
+epoch: 18, train rmse, future_state: 1.799614
+epoch: 18, test rmse, current time window: 3.488532
+epoch: 18, test rmse, future_state: 1.121042
+epoch: 19, train rmse, current time window: 8.961826
+epoch: 19, train rmse, future_state: 1.781872
+epoch: 19, test rmse, current time window: 3.184491
+epoch: 19, test rmse, future_state: 1.094446
+epoch: 20, train rmse, current time window: 8.432645
+epoch: 20, train rmse, future_state: 1.763983
+epoch: 20, test rmse, current time window: 2.845678
+epoch: 20, test rmse, future_state: 1.075129
+epoch: 21, train rmse, current time window: 7.868996
+epoch: 21, train rmse, future_state: 1.748324
+epoch: 21, test rmse, current time window: 2.767173
+epoch: 21, test rmse, future_state: 1.103889
+epoch: 22, train rmse, current time window: 7.495959
+epoch: 22, train rmse, future_state: 1.731870
+epoch: 22, test rmse, current time window: 2.511043
+epoch: 22, test rmse, future_state: 1.090046
+epoch: 23, train rmse, current time window: 7.106361
+epoch: 23, train rmse, future_state: 1.715601
+epoch: 23, test rmse, current time window: 2.328367
+epoch: 23, test rmse, future_state: 1.073726
+epoch: 24, train rmse, current time window: 6.866960
+epoch: 24, train rmse, future_state: 1.701335
+epoch: 24, test rmse, current time window: 2.196727
+epoch: 24, test rmse, future_state: 1.077037
+epoch: 25, train rmse, current time window: 6.586946
+epoch: 25, train rmse, future_state: 1.684541
+epoch: 25, test rmse, current time window: 2.172441
+epoch: 25, test rmse, future_state: 1.061993
+epoch: 26, train rmse, current time window: 6.546809
+epoch: 26, train rmse, future_state: 1.668167
+epoch: 26, test rmse, current time window: 1.964775
+epoch: 26, test rmse, future_state: 1.067515
+epoch: 27, train rmse, current time window: 6.210334
+epoch: 27, train rmse, future_state: 1.655289
+epoch: 27, test rmse, current time window: 1.966514
+epoch: 27, test rmse, future_state: 1.050157
+epoch: 28, train rmse, current time window: 6.091315
+epoch: 28, train rmse, future_state: 1.639893
+epoch: 28, test rmse, current time window: 1.935162
+epoch: 28, test rmse, future_state: 1.035697
+epoch: 29, train rmse, current time window: 5.952501
+epoch: 29, train rmse, future_state: 1.625098
+epoch: 29, test rmse, current time window: 1.919035
+epoch: 29, test rmse, future_state: 1.029938
+epoch: 30, train rmse, current time window: 5.845257
+epoch: 30, train rmse, future_state: 1.615829
+epoch: 30, test rmse, current time window: 1.818312
+epoch: 30, test rmse, future_state: 1.010570
+epoch: 31, train rmse, current time window: 5.773063
+epoch: 31, train rmse, future_state: 1.604480
+epoch: 31, test rmse, current time window: 1.868782
+epoch: 31, test rmse, future_state: 0.986633
+epoch: 32, train rmse, current time window: 5.684827
+epoch: 32, train rmse, future_state: 1.593086
+epoch: 32, test rmse, current time window: 1.770599
+epoch: 32, test rmse, future_state: 0.980657
+epoch: 33, train rmse, current time window: 5.631000
+epoch: 33, train rmse, future_state: 1.574411
+epoch: 33, test rmse, current time window: 1.710253
+epoch: 33, test rmse, future_state: 0.983596
+epoch: 34, train rmse, current time window: 5.538986
+epoch: 34, train rmse, future_state: 1.562220
+epoch: 34, test rmse, current time window: 1.725397
+epoch: 34, test rmse, future_state: 1.038925
+epoch: 35, train rmse, current time window: 5.495560
+epoch: 35, train rmse, future_state: 1.548122
+epoch: 35, test rmse, current time window: 1.808336
+epoch: 35, test rmse, future_state: 0.981397
+epoch: 36, train rmse, current time window: 5.558182
+epoch: 36, train rmse, future_state: 1.533007
+epoch: 36, test rmse, current time window: 1.681709
+epoch: 36, test rmse, future_state: 0.940559
+epoch: 37, train rmse, current time window: 5.425357
+epoch: 37, train rmse, future_state: 1.522416
+epoch: 37, test rmse, current time window: 1.618793
+epoch: 37, test rmse, future_state: 0.935006
+epoch: 38, train rmse, current time window: 5.416886
+epoch: 38, train rmse, future_state: 1.510816
+epoch: 38, test rmse, current time window: 1.659666
+epoch: 38, test rmse, future_state: 0.916137
+epoch: 39, train rmse, current time window: 5.290515
+epoch: 39, train rmse, future_state: 1.494649
+epoch: 39, test rmse, current time window: 1.618278
+epoch: 39, test rmse, future_state: 0.906888
+epoch: 40, train rmse, current time window: 5.347613
+epoch: 40, train rmse, future_state: 1.488162
+epoch: 40, test rmse, current time window: 1.512175
+epoch: 40, test rmse, future_state: 0.904544
+epoch: 41, train rmse, current time window: 5.315785
+epoch: 41, train rmse, future_state: 1.475559
+epoch: 41, test rmse, current time window: 1.486959
+epoch: 41, test rmse, future_state: 0.889714
+epoch: 42, train rmse, current time window: 5.231994
+epoch: 42, train rmse, future_state: 1.463585
+epoch: 42, test rmse, current time window: 1.452883
+epoch: 42, test rmse, future_state: 0.897107
+epoch: 43, train rmse, current time window: 5.163153
+epoch: 43, train rmse, future_state: 1.445123
+epoch: 43, test rmse, current time window: 1.445735
+epoch: 43, test rmse, future_state: 0.909505
+epoch: 44, train rmse, current time window: 5.110473
+epoch: 44, train rmse, future_state: 1.434417
+epoch: 44, test rmse, current time window: 1.496102
+epoch: 44, test rmse, future_state: 0.886299
+epoch: 45, train rmse, current time window: 5.071742
+epoch: 45, train rmse, future_state: 1.418568
+epoch: 45, test rmse, current time window: 1.520949
+epoch: 45, test rmse, future_state: 0.910963
+epoch: 46, train rmse, current time window: 4.971109
+epoch: 46, train rmse, future_state: 1.410944
+epoch: 46, test rmse, current time window: 1.472643
+epoch: 46, test rmse, future_state: 0.860080
+epoch: 47, train rmse, current time window: 4.974924
+epoch: 47, train rmse, future_state: 1.399280
+epoch: 47, test rmse, current time window: 1.530446
+epoch: 47, test rmse, future_state: 0.874208
+epoch: 48, train rmse, current time window: 4.937009
+epoch: 48, train rmse, future_state: 1.386619
+epoch: 48, test rmse, current time window: 1.432665
+epoch: 48, test rmse, future_state: 0.858478
+epoch: 49, train rmse, current time window: 4.938820
+epoch: 49, train rmse, future_state: 1.379696
+epoch: 49, test rmse, current time window: 1.436043
+epoch: 49, test rmse, future_state: 0.859875
+epoch: 50, train rmse, current time window: 4.868303
+epoch: 50, train rmse, future_state: 1.369846
+epoch: 50, test rmse, current time window: 1.440888
+epoch: 50, test rmse, future_state: 0.840845
+epoch: 51, train rmse, current time window: 4.814115
+epoch: 51, train rmse, future_state: 1.360833
+epoch: 51, test rmse, current time window: 1.446358
+epoch: 51, test rmse, future_state: 0.847960
+epoch: 52, train rmse, current time window: 4.875711
+epoch: 52, train rmse, future_state: 1.353516
+epoch: 52, test rmse, current time window: 1.415031
+epoch: 52, test rmse, future_state: 0.812012
+epoch: 53, train rmse, current time window: 4.817148
+epoch: 53, train rmse, future_state: 1.340974
+epoch: 53, test rmse, current time window: 1.404788
+epoch: 53, test rmse, future_state: 0.829891
+epoch: 54, train rmse, current time window: 5.112186
+epoch: 54, train rmse, future_state: 1.334371
+epoch: 54, test rmse, current time window: 1.956308
+epoch: 54, test rmse, future_state: 0.809746
+epoch: 55, train rmse, current time window: 4.976382
+epoch: 55, train rmse, future_state: 1.325915
+epoch: 55, test rmse, current time window: 1.410075
+epoch: 55, test rmse, future_state: 0.814001
+epoch: 56, train rmse, current time window: 4.770401
+epoch: 56, train rmse, future_state: 1.322658
+epoch: 56, test rmse, current time window: 1.471332
+epoch: 56, test rmse, future_state: 0.815201
+epoch: 57, train rmse, current time window: 4.631462
+epoch: 57, train rmse, future_state: 1.305500
+epoch: 57, test rmse, current time window: 1.411946
+epoch: 57, test rmse, future_state: 0.833698
+epoch: 58, train rmse, current time window: 4.666545
+epoch: 58, train rmse, future_state: 1.301453
+epoch: 58, test rmse, current time window: 1.444785
+epoch: 58, test rmse, future_state: 0.796224
+epoch: 59, train rmse, current time window: 4.654659
+epoch: 59, train rmse, future_state: 1.288357
+epoch: 59, test rmse, current time window: 1.477811
+epoch: 59, test rmse, future_state: 0.778534
+epoch: 60, train rmse, current time window: 4.659867
+epoch: 60, train rmse, future_state: 1.294203
+epoch: 60, test rmse, current time window: 1.376385
+epoch: 60, test rmse, future_state: 0.763104
+epoch: 61, train rmse, current time window: 4.620318
+epoch: 61, train rmse, future_state: 1.284857
+epoch: 61, test rmse, current time window: 1.429314
+epoch: 61, test rmse, future_state: 0.775562
+epoch: 62, train rmse, current time window: 4.586888
+epoch: 62, train rmse, future_state: 1.271938
+epoch: 62, test rmse, current time window: 1.406630
+epoch: 62, test rmse, future_state: 0.799433
+epoch: 63, train rmse, current time window: 4.578177
+epoch: 63, train rmse, future_state: 1.262614
+epoch: 63, test rmse, current time window: 1.370010
+epoch: 63, test rmse, future_state: 0.754971
+epoch: 64, train rmse, current time window: 4.578616
+epoch: 64, train rmse, future_state: 1.257416
+epoch: 64, test rmse, current time window: 1.402270
+epoch: 64, test rmse, future_state: 0.779752
+epoch: 65, train rmse, current time window: 4.567223
+epoch: 65, train rmse, future_state: 1.248497
+epoch: 65, test rmse, current time window: 1.336600
+epoch: 65, test rmse, future_state: 0.757790
+epoch: 66, train rmse, current time window: 4.510922
+epoch: 66, train rmse, future_state: 1.244778
+epoch: 66, test rmse, current time window: 1.429067
+epoch: 66, test rmse, future_state: 0.754732
+epoch: 67, train rmse, current time window: 4.520439
+epoch: 67, train rmse, future_state: 1.229562
+epoch: 67, test rmse, current time window: 1.359844
+epoch: 67, test rmse, future_state: 0.761071
+epoch: 68, train rmse, current time window: 4.514589
+epoch: 68, train rmse, future_state: 1.224142
+epoch: 68, test rmse, current time window: 1.418980
+epoch: 68, test rmse, future_state: 0.736501
+epoch: 69, train rmse, current time window: 4.486527
+epoch: 69, train rmse, future_state: 1.213565
+epoch: 69, test rmse, current time window: 1.432967
+epoch: 69, test rmse, future_state: 0.731212
+epoch: 70, train rmse, current time window: 4.497870
+epoch: 70, train rmse, future_state: 1.203836
+epoch: 70, test rmse, current time window: 1.492199
+epoch: 70, test rmse, future_state: 0.738598
+epoch: 71, train rmse, current time window: 4.421804
+epoch: 71, train rmse, future_state: 1.208071
+epoch: 71, test rmse, current time window: 1.355907
+epoch: 71, test rmse, future_state: 0.703951
+epoch: 72, train rmse, current time window: 4.468785
+epoch: 72, train rmse, future_state: 1.205771
+epoch: 72, test rmse, current time window: 1.441513
+epoch: 72, test rmse, future_state: 0.744036
+epoch: 73, train rmse, current time window: 4.498232
+epoch: 73, train rmse, future_state: 1.189826
+epoch: 73, test rmse, current time window: 1.382583
+epoch: 73, test rmse, future_state: 0.741147
+epoch: 74, train rmse, current time window: 4.487529
+epoch: 74, train rmse, future_state: 1.191857
+epoch: 74, test rmse, current time window: 1.402814
+epoch: 74, test rmse, future_state: 0.740990
+epoch: 75, train rmse, current time window: 4.465177
+epoch: 75, train rmse, future_state: 1.193323
+epoch: 75, test rmse, current time window: 1.343616
+epoch: 75, test rmse, future_state: 0.752839
+epoch: 76, train rmse, current time window: 4.480708
+epoch: 76, train rmse, future_state: 1.176471
+epoch: 76, test rmse, current time window: 1.392033
+epoch: 76, test rmse, future_state: 0.707800
+epoch: 77, train rmse, current time window: 4.575572
+epoch: 77, train rmse, future_state: 1.175991
+epoch: 77, test rmse, current time window: 1.431784
+epoch: 77, test rmse, future_state: 0.726751
+epoch: 78, train rmse, current time window: 4.471488
+epoch: 78, train rmse, future_state: 1.168910
+epoch: 78, test rmse, current time window: 1.382184
+epoch: 78, test rmse, future_state: 0.693564
+epoch: 79, train rmse, current time window: 4.398878
+epoch: 79, train rmse, future_state: 1.162619
+epoch: 79, test rmse, current time window: 1.418222
+epoch: 79, test rmse, future_state: 0.699231
+epoch: 80, train rmse, current time window: 4.400866
+epoch: 80, train rmse, future_state: 1.154467
+epoch: 80, test rmse, current time window: 1.428223
+epoch: 80, test rmse, future_state: 0.713008
+epoch: 81, train rmse, current time window: 4.387854
+epoch: 81, train rmse, future_state: 1.160742
+epoch: 81, test rmse, current time window: 1.406121
+epoch: 81, test rmse, future_state: 0.699162
+epoch: 82, train rmse, current time window: 4.335798
+epoch: 82, train rmse, future_state: 1.151899
+epoch: 82, test rmse, current time window: 1.476070
+epoch: 82, test rmse, future_state: 0.679397
+epoch: 83, train rmse, current time window: 4.343405
+epoch: 83, train rmse, future_state: 1.145870
+epoch: 83, test rmse, current time window: 1.417920
+epoch: 83, test rmse, future_state: 0.694337
+epoch: 84, train rmse, current time window: 4.314907
+epoch: 84, train rmse, future_state: 1.134771
+epoch: 84, test rmse, current time window: 1.416625
+epoch: 84, test rmse, future_state: 0.706525
+epoch: 85, train rmse, current time window: 4.378188
+epoch: 85, train rmse, future_state: 1.139321
+epoch: 85, test rmse, current time window: 1.436802
+epoch: 85, test rmse, future_state: 0.685581
+epoch: 86, train rmse, current time window: 4.288806
+epoch: 86, train rmse, future_state: 1.143834
+epoch: 86, test rmse, current time window: 1.434699
+epoch: 86, test rmse, future_state: 0.684435
+epoch: 87, train rmse, current time window: 4.303332
+epoch: 87, train rmse, future_state: 1.122118
+epoch: 87, test rmse, current time window: 1.420631
+epoch: 87, test rmse, future_state: 0.663137
+epoch: 88, train rmse, current time window: 4.337380
+epoch: 88, train rmse, future_state: 1.123660
+epoch: 88, test rmse, current time window: 1.449762
+epoch: 88, test rmse, future_state: 0.657984
+epoch: 89, train rmse, current time window: 4.262988
+epoch: 89, train rmse, future_state: 1.130617
+epoch: 89, test rmse, current time window: 1.464118
+epoch: 89, test rmse, future_state: 0.695627
+epoch: 90, train rmse, current time window: 4.300574
+epoch: 90, train rmse, future_state: 1.137473
+epoch: 90, test rmse, current time window: 1.490623
+epoch: 90, test rmse, future_state: 0.675323
+epoch: 91, train rmse, current time window: 4.265177
+epoch: 91, train rmse, future_state: 1.133330
+epoch: 91, test rmse, current time window: 1.434736
+epoch: 91, test rmse, future_state: 0.674626
+epoch: 92, train rmse, current time window: 4.227645
+epoch: 92, train rmse, future_state: 1.105507
+epoch: 92, test rmse, current time window: 1.441986
+epoch: 92, test rmse, future_state: 0.653943
+epoch: 93, train rmse, current time window: 4.245466
+epoch: 93, train rmse, future_state: 1.098168
+epoch: 93, test rmse, current time window: 1.442332
+epoch: 93, test rmse, future_state: 0.674937
+epoch: 94, train rmse, current time window: 4.199598
+epoch: 94, train rmse, future_state: 1.117672
+epoch: 94, test rmse, current time window: 1.373678
+epoch: 94, test rmse, future_state: 0.650888
+epoch: 95, train rmse, current time window: 4.148819
+epoch: 95, train rmse, future_state: 1.102115
+epoch: 95, test rmse, current time window: 1.406497
+epoch: 95, test rmse, future_state: 0.636099
+epoch: 96, train rmse, current time window: 4.211573
+epoch: 96, train rmse, future_state: 1.098947
+epoch: 96, test rmse, current time window: 1.344111
+epoch: 96, test rmse, future_state: 0.672929
+epoch: 97, train rmse, current time window: 4.125264
+epoch: 97, train rmse, future_state: 1.100290
+epoch: 97, test rmse, current time window: 1.429830
+epoch: 97, test rmse, future_state: 0.650120
+epoch: 98, train rmse, current time window: 4.224219
+epoch: 98, train rmse, future_state: 1.094915
+epoch: 98, test rmse, current time window: 1.416828
+epoch: 98, test rmse, future_state: 0.645837
+epoch: 99, train rmse, current time window: 4.144494
+epoch: 99, train rmse, future_state: 1.109574
+epoch: 99, test rmse, current time window: 1.474077
+epoch: 99, test rmse, future_state: 0.650128
+epoch: 100, train rmse, current time window: 4.183039
+epoch: 100, train rmse, future_state: 1.091234
+epoch: 100, test rmse, current time window: 1.510508
+epoch: 100, test rmse, future_state: 0.633041
+epoch: 101, train rmse, current time window: 4.134329
+epoch: 101, train rmse, future_state: 1.105977
+epoch: 101, test rmse, current time window: 1.441620
+epoch: 101, test rmse, future_state: 0.674318
+epoch: 102, train rmse, current time window: 4.158553
+epoch: 102, train rmse, future_state: 1.092759
+epoch: 102, test rmse, current time window: 1.485238
+epoch: 102, test rmse, future_state: 0.670702
+epoch: 103, train rmse, current time window: 4.268114
+epoch: 103, train rmse, future_state: 1.072618
+epoch: 103, test rmse, current time window: 1.471049
+epoch: 103, test rmse, future_state: 0.649773
+epoch: 104, train rmse, current time window: 4.153402
+epoch: 104, train rmse, future_state: 1.076789
+epoch: 104, test rmse, current time window: 1.547440
+epoch: 104, test rmse, future_state: 0.643078
+epoch: 105, train rmse, current time window: 4.169147
+epoch: 105, train rmse, future_state: 1.075880
+epoch: 105, test rmse, current time window: 1.491158
+epoch: 105, test rmse, future_state: 0.642271
+epoch: 106, train rmse, current time window: 4.136051
+epoch: 106, train rmse, future_state: 1.079781
+epoch: 106, test rmse, current time window: 1.486736
+epoch: 106, test rmse, future_state: 0.677674
+epoch: 107, train rmse, current time window: 4.156239
+epoch: 107, train rmse, future_state: 1.081386
+epoch: 107, test rmse, current time window: 1.477135
+epoch: 107, test rmse, future_state: 0.639998
+epoch: 108, train rmse, current time window: 4.147849
+epoch: 108, train rmse, future_state: 1.069051
+epoch: 108, test rmse, current time window: 1.500844
+epoch: 108, test rmse, future_state: 0.626461
+epoch: 109, train rmse, current time window: 4.129132
+epoch: 109, train rmse, future_state: 1.084177
+epoch: 109, test rmse, current time window: 1.491206
+epoch: 109, test rmse, future_state: 0.696689
+epoch: 110, train rmse, current time window: 4.133814
+epoch: 110, train rmse, future_state: 1.075550
+epoch: 110, test rmse, current time window: 1.437672
+epoch: 110, test rmse, future_state: 0.620365
+epoch: 111, train rmse, current time window: 4.168036
+epoch: 111, train rmse, future_state: 1.070328
+epoch: 111, test rmse, current time window: 1.470963
+epoch: 111, test rmse, future_state: 0.630207
+epoch: 112, train rmse, current time window: 4.138931
+epoch: 112, train rmse, future_state: 1.045614
+epoch: 112, test rmse, current time window: 1.463578
+epoch: 112, test rmse, future_state: 0.627999
+epoch: 113, train rmse, current time window: 4.074544
+epoch: 113, train rmse, future_state: 1.079863
+epoch: 113, test rmse, current time window: 1.507325
+epoch: 113, test rmse, future_state: 0.643040
+epoch: 114, train rmse, current time window: 4.051174
+epoch: 114, train rmse, future_state: 1.066018
+epoch: 114, test rmse, current time window: 1.613054
+epoch: 114, test rmse, future_state: 0.651630
+epoch: 115, train rmse, current time window: 4.002708
+epoch: 115, train rmse, future_state: 1.051354
+epoch: 115, test rmse, current time window: 1.552769
+epoch: 115, test rmse, future_state: 0.635311
+epoch: 116, train rmse, current time window: 4.096895
+epoch: 116, train rmse, future_state: 1.050840
+epoch: 116, test rmse, current time window: 1.511134
+epoch: 116, test rmse, future_state: 0.637012
+epoch: 117, train rmse, current time window: 4.036314
+epoch: 117, train rmse, future_state: 1.060403
+epoch: 117, test rmse, current time window: 1.469517
+epoch: 117, test rmse, future_state: 0.637623
+epoch: 118, train rmse, current time window: 4.076714
+epoch: 118, train rmse, future_state: 1.052915
+epoch: 118, test rmse, current time window: 1.536791
+epoch: 118, test rmse, future_state: 0.620262
+epoch: 119, train rmse, current time window: 4.040632
+epoch: 119, train rmse, future_state: 1.051132
+epoch: 119, test rmse, current time window: 1.547888
+epoch: 119, test rmse, future_state: 0.614369
+epoch: 120, train rmse, current time window: 4.016462
+epoch: 120, train rmse, future_state: 1.054403
+epoch: 120, test rmse, current time window: 1.455930
+epoch: 120, test rmse, future_state: 0.627788
+epoch: 121, train rmse, current time window: 4.038178
+epoch: 121, train rmse, future_state: 1.042800
+epoch: 121, test rmse, current time window: 1.480435
+epoch: 121, test rmse, future_state: 0.623187
+epoch: 122, train rmse, current time window: 4.032776
+epoch: 122, train rmse, future_state: 1.057606
+epoch: 122, test rmse, current time window: 1.462142
+epoch: 122, test rmse, future_state: 0.604616
+epoch: 123, train rmse, current time window: 4.034163
+epoch: 123, train rmse, future_state: 1.058062
+epoch: 123, test rmse, current time window: 1.520311
+epoch: 123, test rmse, future_state: 0.633569
+epoch: 124, train rmse, current time window: 4.051348
+epoch: 124, train rmse, future_state: 1.058713
+epoch: 124, test rmse, current time window: 1.510170
+epoch: 124, test rmse, future_state: 0.620903
+epoch: 125, train rmse, current time window: 4.257081
+epoch: 125, train rmse, future_state: 1.031343
+epoch: 125, test rmse, current time window: 1.546859
+epoch: 125, test rmse, future_state: 0.652834
+epoch: 126, train rmse, current time window: 4.241388
+epoch: 126, train rmse, future_state: 1.036876
+epoch: 126, test rmse, current time window: 1.501073
+epoch: 126, test rmse, future_state: 0.603267
+epoch: 127, train rmse, current time window: 4.136248
+epoch: 127, train rmse, future_state: 1.025368
+epoch: 127, test rmse, current time window: 1.520624
+epoch: 127, test rmse, future_state: 0.598567
+epoch: 128, train rmse, current time window: 4.067415
+epoch: 128, train rmse, future_state: 1.039979
+epoch: 128, test rmse, current time window: 1.482324
+epoch: 128, test rmse, future_state: 0.609619
+epoch: 129, train rmse, current time window: 4.131131
+epoch: 129, train rmse, future_state: 1.030471
+epoch: 129, test rmse, current time window: 1.501036
+epoch: 129, test rmse, future_state: 0.660085
+epoch: 130, train rmse, current time window: 3.976681
+epoch: 130, train rmse, future_state: 1.042685
+epoch: 130, test rmse, current time window: 1.443597
+epoch: 130, test rmse, future_state: 0.616741
+epoch: 131, train rmse, current time window: 4.063465
+epoch: 131, train rmse, future_state: 1.035806
+epoch: 131, test rmse, current time window: 1.436664
+epoch: 131, test rmse, future_state: 0.600963
+epoch: 132, train rmse, current time window: 3.979429
+epoch: 132, train rmse, future_state: 1.034974
+epoch: 132, test rmse, current time window: 1.447690
+epoch: 132, test rmse, future_state: 0.606414
+epoch: 133, train rmse, current time window: 4.049521
+epoch: 133, train rmse, future_state: 1.029051
+epoch: 133, test rmse, current time window: 1.602565
+epoch: 133, test rmse, future_state: 0.620339
+epoch: 134, train rmse, current time window: 3.993613
+epoch: 134, train rmse, future_state: 1.036491
+epoch: 134, test rmse, current time window: 1.600301
+epoch: 134, test rmse, future_state: 0.624207
+epoch: 135, train rmse, current time window: 3.974817
+epoch: 135, train rmse, future_state: 1.012924
+epoch: 135, test rmse, current time window: 1.552965
+epoch: 135, test rmse, future_state: 0.610616
+epoch: 136, train rmse, current time window: 3.981143
+epoch: 136, train rmse, future_state: 1.023790
+epoch: 136, test rmse, current time window: 1.490765
+epoch: 136, test rmse, future_state: 0.598714
+epoch: 137, train rmse, current time window: 3.913800
+epoch: 137, train rmse, future_state: 1.020643
+epoch: 137, test rmse, current time window: 1.539917
+epoch: 137, test rmse, future_state: 0.617385
+epoch: 138, train rmse, current time window: 3.874250
+epoch: 138, train rmse, future_state: 1.020682
+epoch: 138, test rmse, current time window: 1.552131
+epoch: 138, test rmse, future_state: 0.623961
+epoch: 139, train rmse, current time window: 3.913258
+epoch: 139, train rmse, future_state: 1.015920
+epoch: 139, test rmse, current time window: 1.493551
+epoch: 139, test rmse, future_state: 0.600542
+epoch: 140, train rmse, current time window: 3.918174
+epoch: 140, train rmse, future_state: 1.010343
+epoch: 140, test rmse, current time window: 1.436386
+epoch: 140, test rmse, future_state: 0.740843
+epoch: 141, train rmse, current time window: 3.920248
+epoch: 141, train rmse, future_state: 1.028706
+epoch: 141, test rmse, current time window: 1.460466
+epoch: 141, test rmse, future_state: 0.621521
+epoch: 142, train rmse, current time window: 3.931301
+epoch: 142, train rmse, future_state: 1.003505
+epoch: 142, test rmse, current time window: 1.514330
+epoch: 142, test rmse, future_state: 0.607554
+epoch: 143, train rmse, current time window: 3.865012
+epoch: 143, train rmse, future_state: 1.008830
+epoch: 143, test rmse, current time window: 1.402270
+epoch: 143, test rmse, future_state: 0.638485
+epoch: 144, train rmse, current time window: 3.807671
+epoch: 144, train rmse, future_state: 0.999447
+epoch: 144, test rmse, current time window: 1.508215
+epoch: 144, test rmse, future_state: 0.585230
+epoch: 145, train rmse, current time window: 3.906233
+epoch: 145, train rmse, future_state: 1.000625
+epoch: 145, test rmse, current time window: 1.483618
+epoch: 145, test rmse, future_state: 0.590524
+epoch: 146, train rmse, current time window: 3.908849
+epoch: 146, train rmse, future_state: 0.997511
+epoch: 146, test rmse, current time window: 1.515198
+epoch: 146, test rmse, future_state: 0.557540
+epoch: 147, train rmse, current time window: 3.877214
+epoch: 147, train rmse, future_state: 1.023980
+epoch: 147, test rmse, current time window: 1.491032
+epoch: 147, test rmse, future_state: 0.591743
+epoch: 148, train rmse, current time window: 3.926286
+epoch: 148, train rmse, future_state: 0.996700
+epoch: 148, test rmse, current time window: 1.426886
+epoch: 148, test rmse, future_state: 0.626300
+epoch: 149, train rmse, current time window: 3.885403
+epoch: 149, train rmse, future_state: 1.007407
+epoch: 149, test rmse, current time window: 1.419590
+epoch: 149, test rmse, future_state: 0.611758
+epoch: 150, train rmse, current time window: 3.828858
+epoch: 150, train rmse, future_state: 0.993864
+epoch: 150, test rmse, current time window: 1.476305
+epoch: 150, test rmse, future_state: 0.579555
+epoch: 151, train rmse, current time window: 3.895287
+epoch: 151, train rmse, future_state: 0.989766
+epoch: 151, test rmse, current time window: 1.507321
+epoch: 151, test rmse, future_state: 0.616635
+epoch: 152, train rmse, current time window: 3.801805
+epoch: 152, train rmse, future_state: 0.997025
+epoch: 152, test rmse, current time window: 1.442353
+epoch: 152, test rmse, future_state: 0.621274
+epoch: 153, train rmse, current time window: 3.821294
+epoch: 153, train rmse, future_state: 1.002399
+epoch: 153, test rmse, current time window: 1.386087
+epoch: 153, test rmse, future_state: 0.588686
+epoch: 154, train rmse, current time window: 3.786473
+epoch: 154, train rmse, future_state: 0.994219
+epoch: 154, test rmse, current time window: 1.420600
+epoch: 154, test rmse, future_state: 0.587684
+epoch: 155, train rmse, current time window: 3.822926
+epoch: 155, train rmse, future_state: 0.992322
+epoch: 155, test rmse, current time window: 1.452022
+epoch: 155, test rmse, future_state: 0.568604
+epoch: 156, train rmse, current time window: 3.816456
+epoch: 156, train rmse, future_state: 0.990397
+epoch: 156, test rmse, current time window: 1.454495
+epoch: 156, test rmse, future_state: 0.575825
+epoch: 157, train rmse, current time window: 3.892676
+epoch: 157, train rmse, future_state: 0.988153
+epoch: 157, test rmse, current time window: 1.592527
+epoch: 157, test rmse, future_state: 0.578726
+epoch: 158, train rmse, current time window: 4.057103
+epoch: 158, train rmse, future_state: 0.994272
+epoch: 158, test rmse, current time window: 1.496430
+epoch: 158, test rmse, future_state: 0.615597
+epoch: 159, train rmse, current time window: 3.961244
+epoch: 159, train rmse, future_state: 0.989703
+epoch: 159, test rmse, current time window: 1.518899
+epoch: 159, test rmse, future_state: 0.568904
+epoch: 160, train rmse, current time window: 3.792396
+epoch: 160, train rmse, future_state: 0.974071
+epoch: 160, test rmse, current time window: 1.470329
+epoch: 160, test rmse, future_state: 0.588094
+epoch: 161, train rmse, current time window: 3.731677
+epoch: 161, train rmse, future_state: 0.984774
+epoch: 161, test rmse, current time window: 1.495662
+epoch: 161, test rmse, future_state: 0.589507
+epoch: 162, train rmse, current time window: 3.749721
+epoch: 162, train rmse, future_state: 0.985132
+epoch: 162, test rmse, current time window: 1.357937
+epoch: 162, test rmse, future_state: 0.582392
+epoch: 163, train rmse, current time window: 3.791869
+epoch: 163, train rmse, future_state: 0.987030
+epoch: 163, test rmse, current time window: 1.474450
+epoch: 163, test rmse, future_state: 0.583199
+epoch: 164, train rmse, current time window: 3.759236
+epoch: 164, train rmse, future_state: 0.981109
+epoch: 164, test rmse, current time window: 1.404726
+epoch: 164, test rmse, future_state: 0.602615
+epoch: 165, train rmse, current time window: 3.769143
+epoch: 165, train rmse, future_state: 0.985938
+epoch: 165, test rmse, current time window: 1.459806
+epoch: 165, test rmse, future_state: 0.572265
+epoch: 166, train rmse, current time window: 3.839906
+epoch: 166, train rmse, future_state: 0.984883
+epoch: 166, test rmse, current time window: 1.462828
+epoch: 166, test rmse, future_state: 0.565026
+epoch: 167, train rmse, current time window: 3.770422
+epoch: 167, train rmse, future_state: 0.977804
+epoch: 167, test rmse, current time window: 1.404164
+epoch: 167, test rmse, future_state: 0.562310
+epoch: 168, train rmse, current time window: 3.742745
+epoch: 168, train rmse, future_state: 0.978841
+epoch: 168, test rmse, current time window: 1.463649
+epoch: 168, test rmse, future_state: 0.580762
+epoch: 169, train rmse, current time window: 3.674927
+epoch: 169, train rmse, future_state: 0.965598
+epoch: 169, test rmse, current time window: 1.441861
+epoch: 169, test rmse, future_state: 0.573908
+epoch: 170, train rmse, current time window: 3.804455
+epoch: 170, train rmse, future_state: 1.019055
+epoch: 170, test rmse, current time window: 1.421772
+epoch: 170, test rmse, future_state: 0.590594
+epoch: 171, train rmse, current time window: 3.786906
+epoch: 171, train rmse, future_state: 0.975769
+epoch: 171, test rmse, current time window: 1.527788
+epoch: 171, test rmse, future_state: 0.598709
+epoch: 172, train rmse, current time window: 3.760486
+epoch: 172, train rmse, future_state: 0.981552
+epoch: 172, test rmse, current time window: 1.427851
+epoch: 172, test rmse, future_state: 0.603695
+epoch: 173, train rmse, current time window: 3.764527
+epoch: 173, train rmse, future_state: 0.980970
+epoch: 173, test rmse, current time window: 1.431160
+epoch: 173, test rmse, future_state: 0.563970
+epoch: 174, train rmse, current time window: 3.667406
+epoch: 174, train rmse, future_state: 0.965603
+epoch: 174, test rmse, current time window: 1.479669
+epoch: 174, test rmse, future_state: 0.568278
+epoch: 175, train rmse, current time window: 3.721179
+epoch: 175, train rmse, future_state: 0.967304
+epoch: 175, test rmse, current time window: 1.458058
+epoch: 175, test rmse, future_state: 0.570767
+epoch: 176, train rmse, current time window: 3.685302
+epoch: 176, train rmse, future_state: 0.959282
+epoch: 176, test rmse, current time window: 1.477020
+epoch: 176, test rmse, future_state: 0.571081
+epoch: 177, train rmse, current time window: 3.730738
+epoch: 177, train rmse, future_state: 0.964884
+epoch: 177, test rmse, current time window: 1.498418
+epoch: 177, test rmse, future_state: 0.571059
+epoch: 178, train rmse, current time window: 3.717725
+epoch: 178, train rmse, future_state: 0.966343
+epoch: 178, test rmse, current time window: 1.474257
+epoch: 178, test rmse, future_state: 0.605707
+epoch: 179, train rmse, current time window: 3.642786
+epoch: 179, train rmse, future_state: 0.955573
+epoch: 179, test rmse, current time window: 1.534502
+epoch: 179, test rmse, future_state: 0.577351
+epoch: 180, train rmse, current time window: 3.662614
+epoch: 180, train rmse, future_state: 0.953170
+epoch: 180, test rmse, current time window: 1.507177
+epoch: 180, test rmse, future_state: 0.549789
+epoch: 181, train rmse, current time window: 3.666187
+epoch: 181, train rmse, future_state: 0.949343
+epoch: 181, test rmse, current time window: 1.492941
+epoch: 181, test rmse, future_state: 0.565636
+epoch: 182, train rmse, current time window: 3.717175
+epoch: 182, train rmse, future_state: 0.945908
+epoch: 182, test rmse, current time window: 1.495126
+epoch: 182, test rmse, future_state: 0.554934
+epoch: 183, train rmse, current time window: 3.645860
+epoch: 183, train rmse, future_state: 0.955098
+epoch: 183, test rmse, current time window: 1.593576
+epoch: 183, test rmse, future_state: 0.556606
+epoch: 184, train rmse, current time window: 3.669495
+epoch: 184, train rmse, future_state: 0.950918
+epoch: 184, test rmse, current time window: 1.632397
+epoch: 184, test rmse, future_state: 0.557112
+epoch: 185, train rmse, current time window: 3.850694
+epoch: 185, train rmse, future_state: 0.949839
+epoch: 185, test rmse, current time window: 1.450204
+epoch: 185, test rmse, future_state: 0.551712
+epoch: 186, train rmse, current time window: 3.816934
+epoch: 186, train rmse, future_state: 0.954171
+epoch: 186, test rmse, current time window: 1.450619
+epoch: 186, test rmse, future_state: 0.558838
+epoch: 187, train rmse, current time window: 3.706992
+epoch: 187, train rmse, future_state: 0.948043
+epoch: 187, test rmse, current time window: 1.396909
+epoch: 187, test rmse, future_state: 0.578819
+epoch: 188, train rmse, current time window: 3.670265
+epoch: 188, train rmse, future_state: 0.947497
+epoch: 188, test rmse, current time window: 1.329799
+epoch: 188, test rmse, future_state: 0.555679
+epoch: 189, train rmse, current time window: 3.738523
+epoch: 189, train rmse, future_state: 0.949180
+epoch: 189, test rmse, current time window: 1.341181
+epoch: 189, test rmse, future_state: 0.579600
+epoch: 190, train rmse, current time window: 3.702108
+epoch: 190, train rmse, future_state: 0.962089
+epoch: 190, test rmse, current time window: 1.406236
+epoch: 190, test rmse, future_state: 0.557424
+epoch: 191, train rmse, current time window: 3.667559
+epoch: 191, train rmse, future_state: 0.949355
+epoch: 191, test rmse, current time window: 1.478578
+epoch: 191, test rmse, future_state: 0.544090
+epoch: 192, train rmse, current time window: 3.723526
+epoch: 192, train rmse, future_state: 0.952782
+epoch: 192, test rmse, current time window: 1.417483
+epoch: 192, test rmse, future_state: 0.581480
+epoch: 193, train rmse, current time window: 3.651051
+epoch: 193, train rmse, future_state: 0.958734
+epoch: 193, test rmse, current time window: 1.502936
+epoch: 193, test rmse, future_state: 0.569131
+epoch: 194, train rmse, current time window: 3.652569
+epoch: 194, train rmse, future_state: 0.963741
+epoch: 194, test rmse, current time window: 1.470483
+epoch: 194, test rmse, future_state: 0.554177
+epoch: 195, train rmse, current time window: 3.605979
+epoch: 195, train rmse, future_state: 0.981579
+epoch: 195, test rmse, current time window: 1.452089
+epoch: 195, test rmse, future_state: 0.752068
+epoch: 196, train rmse, current time window: 3.625379
+epoch: 196, train rmse, future_state: 0.956903
+epoch: 196, test rmse, current time window: 1.419810
+epoch: 196, test rmse, future_state: 0.565488
+epoch: 197, train rmse, current time window: 3.678917
+epoch: 197, train rmse, future_state: 0.945948
+epoch: 197, test rmse, current time window: 1.419817
+epoch: 197, test rmse, future_state: 0.536910
+epoch: 198, train rmse, current time window: 3.687575
+epoch: 198, train rmse, future_state: 0.957817
+epoch: 198, test rmse, current time window: 1.406864
+epoch: 198, test rmse, future_state: 0.581698
+epoch: 199, train rmse, current time window: 3.626430
+epoch: 199, train rmse, future_state: 0.946487
+epoch: 199, test rmse, current time window: 1.425769
+epoch: 199, test rmse, future_state: 0.546874
+epoch: 200, train rmse, current time window: 3.615317
+epoch: 200, train rmse, future_state: 0.928240
+epoch: 200, test rmse, current time window: 1.416122
+epoch: 200, test rmse, future_state: 0.555739
+epoch: 201, train rmse, current time window: 3.585795
+epoch: 201, train rmse, future_state: 0.924416
+epoch: 201, test rmse, current time window: 1.426438
+epoch: 201, test rmse, future_state: 0.532016
+epoch: 202, train rmse, current time window: 3.701246
+epoch: 202, train rmse, future_state: 0.936308
+epoch: 202, test rmse, current time window: 1.464335
+epoch: 202, test rmse, future_state: 0.576431
+epoch: 203, train rmse, current time window: 3.618575
+epoch: 203, train rmse, future_state: 0.942090
+epoch: 203, test rmse, current time window: 1.486530
+epoch: 203, test rmse, future_state: 0.562866
+epoch: 204, train rmse, current time window: 3.636789
+epoch: 204, train rmse, future_state: 0.953464
+epoch: 204, test rmse, current time window: 1.492579
+epoch: 204, test rmse, future_state: 0.590013
+epoch: 205, train rmse, current time window: 3.594783
+epoch: 205, train rmse, future_state: 0.942327
+epoch: 205, test rmse, current time window: 1.478219
+epoch: 205, test rmse, future_state: 0.614203
+epoch: 206, train rmse, current time window: 3.600307
+epoch: 206, train rmse, future_state: 0.929850
+epoch: 206, test rmse, current time window: 1.422427
+epoch: 206, test rmse, future_state: 0.545982
+epoch: 207, train rmse, current time window: 3.552961
+epoch: 207, train rmse, future_state: 0.929574
+epoch: 207, test rmse, current time window: 1.519187
+epoch: 207, test rmse, future_state: 0.620383
+epoch: 208, train rmse, current time window: 3.679784
+epoch: 208, train rmse, future_state: 0.931878
+epoch: 208, test rmse, current time window: 1.406858
+epoch: 208, test rmse, future_state: 0.548691
+epoch: 209, train rmse, current time window: 3.560820
+epoch: 209, train rmse, future_state: 0.934174
+epoch: 209, test rmse, current time window: 1.399724
+epoch: 209, test rmse, future_state: 0.613425
+epoch: 210, train rmse, current time window: 3.557936
+epoch: 210, train rmse, future_state: 0.941422
+epoch: 210, test rmse, current time window: 1.458238
+epoch: 210, test rmse, future_state: 0.587011
+epoch: 211, train rmse, current time window: 3.524316
+epoch: 211, train rmse, future_state: 0.941614
+epoch: 211, test rmse, current time window: 1.488813
+epoch: 211, test rmse, future_state: 0.539950
+epoch: 212, train rmse, current time window: 3.589959
+epoch: 212, train rmse, future_state: 0.932983
+epoch: 212, test rmse, current time window: 1.470489
+epoch: 212, test rmse, future_state: 0.560735
+epoch: 213, train rmse, current time window: 3.579778
+epoch: 213, train rmse, future_state: 0.942703
+epoch: 213, test rmse, current time window: 1.391743
+epoch: 213, test rmse, future_state: 0.538668
+epoch: 214, train rmse, current time window: 3.524305
+epoch: 214, train rmse, future_state: 0.934350
+epoch: 214, test rmse, current time window: 1.519385
+epoch: 214, test rmse, future_state: 0.592684
+epoch: 215, train rmse, current time window: 3.580219
+epoch: 215, train rmse, future_state: 0.938329
+epoch: 215, test rmse, current time window: 1.462420
+epoch: 215, test rmse, future_state: 0.661151
+epoch: 216, train rmse, current time window: 3.662525
+epoch: 216, train rmse, future_state: 0.933826
+epoch: 216, test rmse, current time window: 1.602409
+epoch: 216, test rmse, future_state: 0.633394
+epoch: 217, train rmse, current time window: 3.600995
+epoch: 217, train rmse, future_state: 0.937650
+epoch: 217, test rmse, current time window: 1.490353
+epoch: 217, test rmse, future_state: 0.569580
+epoch: 218, train rmse, current time window: 3.574410
+epoch: 218, train rmse, future_state: 0.928719
+epoch: 218, test rmse, current time window: 1.399166
+epoch: 218, test rmse, future_state: 0.565942
+epoch: 219, train rmse, current time window: 3.522720
+epoch: 219, train rmse, future_state: 0.929770
+epoch: 219, test rmse, current time window: 1.442058
+epoch: 219, test rmse, future_state: 0.560782
+epoch: 220, train rmse, current time window: 3.540918
+epoch: 220, train rmse, future_state: 0.921935
+epoch: 220, test rmse, current time window: 1.380988
+epoch: 220, test rmse, future_state: 0.583821
+epoch: 221, train rmse, current time window: 3.607418
+epoch: 221, train rmse, future_state: 0.925380
+epoch: 221, test rmse, current time window: 1.474957
+epoch: 221, test rmse, future_state: 0.542996
+epoch: 222, train rmse, current time window: 3.535468
+epoch: 222, train rmse, future_state: 0.916960
+epoch: 222, test rmse, current time window: 1.440774
+epoch: 222, test rmse, future_state: 0.593793
+epoch: 223, train rmse, current time window: 3.483888
+epoch: 223, train rmse, future_state: 0.924664
+epoch: 223, test rmse, current time window: 1.427231
+epoch: 223, test rmse, future_state: 0.577275
+epoch: 224, train rmse, current time window: 3.588453
+epoch: 224, train rmse, future_state: 0.917241
+epoch: 224, test rmse, current time window: 1.379985
+epoch: 224, test rmse, future_state: 0.582274
+epoch: 225, train rmse, current time window: 3.505484
+epoch: 225, train rmse, future_state: 0.926303
+epoch: 225, test rmse, current time window: 1.430315
+epoch: 225, test rmse, future_state: 0.547050
+epoch: 226, train rmse, current time window: 3.592109
+epoch: 226, train rmse, future_state: 0.927707
+epoch: 226, test rmse, current time window: 1.466885
+epoch: 226, test rmse, future_state: 0.555946
+epoch: 227, train rmse, current time window: 3.634339
+epoch: 227, train rmse, future_state: 0.919352
+epoch: 227, test rmse, current time window: 1.531013
+epoch: 227, test rmse, future_state: 0.538691
+epoch: 228, train rmse, current time window: 3.593349
+epoch: 228, train rmse, future_state: 0.909570
+epoch: 228, test rmse, current time window: 1.411539
+epoch: 228, test rmse, future_state: 0.566192
+epoch: 229, train rmse, current time window: 3.566052
+epoch: 229, train rmse, future_state: 0.925667
+epoch: 229, test rmse, current time window: 1.424478
+epoch: 229, test rmse, future_state: 0.581706
+epoch: 230, train rmse, current time window: 3.531644
+epoch: 230, train rmse, future_state: 0.908911
+epoch: 230, test rmse, current time window: 1.465357
+epoch: 230, test rmse, future_state: 0.581780
+epoch: 231, train rmse, current time window: 3.614394
+epoch: 231, train rmse, future_state: 0.926817
+epoch: 231, test rmse, current time window: 1.554756
+epoch: 231, test rmse, future_state: 0.544679
+epoch: 232, train rmse, current time window: 3.560266
+epoch: 232, train rmse, future_state: 0.910536
+epoch: 232, test rmse, current time window: 1.486433
+epoch: 232, test rmse, future_state: 0.536405
+epoch: 233, train rmse, current time window: 3.588313
+epoch: 233, train rmse, future_state: 0.906932
+epoch: 233, test rmse, current time window: 1.474936
+epoch: 233, test rmse, future_state: 0.591448
+epoch: 234, train rmse, current time window: 3.491932
+epoch: 234, train rmse, future_state: 0.922902
+epoch: 234, test rmse, current time window: 1.510350
+epoch: 234, test rmse, future_state: 0.619789
+epoch: 235, train rmse, current time window: 3.513442
+epoch: 235, train rmse, future_state: 0.907174
+epoch: 235, test rmse, current time window: 1.413090
+epoch: 235, test rmse, future_state: 0.578661
+epoch: 236, train rmse, current time window: 3.601766
+epoch: 236, train rmse, future_state: 0.901218
+epoch: 236, test rmse, current time window: 1.468384
+epoch: 236, test rmse, future_state: 0.532084
+epoch: 237, train rmse, current time window: 3.603471
+epoch: 237, train rmse, future_state: 0.902304
+epoch: 237, test rmse, current time window: 1.537398
+epoch: 237, test rmse, future_state: 0.539965
+epoch: 238, train rmse, current time window: 3.683399
+epoch: 238, train rmse, future_state: 0.907656
+epoch: 238, test rmse, current time window: 1.665043
+epoch: 238, test rmse, future_state: 0.536732
+epoch: 239, train rmse, current time window: 3.637401
+epoch: 239, train rmse, future_state: 0.900137
+epoch: 239, test rmse, current time window: 1.448364
+epoch: 239, test rmse, future_state: 0.533325
+epoch: 240, train rmse, current time window: 3.553759
+epoch: 240, train rmse, future_state: 0.901857
+epoch: 240, test rmse, current time window: 1.520432
+epoch: 240, test rmse, future_state: 0.531329
+epoch: 241, train rmse, current time window: 3.473063
+epoch: 241, train rmse, future_state: 0.909882
+epoch: 241, test rmse, current time window: 1.508757
+epoch: 241, test rmse, future_state: 0.608336
+epoch: 242, train rmse, current time window: 3.675614
+epoch: 242, train rmse, future_state: 0.904968
+epoch: 242, test rmse, current time window: 1.536165
+epoch: 242, test rmse, future_state: 0.556731
+epoch: 243, train rmse, current time window: 3.617447
+epoch: 243, train rmse, future_state: 0.888319
+epoch: 243, test rmse, current time window: 1.522703
+epoch: 243, test rmse, future_state: 0.527549
+epoch: 244, train rmse, current time window: 3.554927
+epoch: 244, train rmse, future_state: 0.899919
+epoch: 244, test rmse, current time window: 1.567402
+epoch: 244, test rmse, future_state: 0.570265
+epoch: 245, train rmse, current time window: 3.573603
+epoch: 245, train rmse, future_state: 0.905667
+epoch: 245, test rmse, current time window: 1.548236
+epoch: 245, test rmse, future_state: 0.557065
+epoch: 246, train rmse, current time window: 3.509174
+epoch: 246, train rmse, future_state: 0.893160
+epoch: 246, test rmse, current time window: 1.549763
+epoch: 246, test rmse, future_state: 0.601739
+epoch: 247, train rmse, current time window: 3.575297
+epoch: 247, train rmse, future_state: 0.900038
+epoch: 247, test rmse, current time window: 1.575529
+epoch: 247, test rmse, future_state: 0.531474
+epoch: 248, train rmse, current time window: 3.523894
+epoch: 248, train rmse, future_state: 0.892818
+epoch: 248, test rmse, current time window: 1.490406
+epoch: 248, test rmse, future_state: 0.549840
+epoch: 249, train rmse, current time window: 3.480691
+epoch: 249, train rmse, future_state: 0.890035
+epoch: 249, test rmse, current time window: 1.495659
+epoch: 249, test rmse, future_state: 0.535271
+epoch: 250, train rmse, current time window: 3.471219
+epoch: 250, train rmse, future_state: 0.900488
+epoch: 250, test rmse, current time window: 1.499624
+epoch: 250, test rmse, future_state: 0.559254
+epoch: 251, train rmse, current time window: 3.432943
+epoch: 251, train rmse, future_state: 0.927308
+epoch: 251, test rmse, current time window: 1.485504
+epoch: 251, test rmse, future_state: 0.552424
+epoch: 252, train rmse, current time window: 3.450253
+epoch: 252, train rmse, future_state: 0.895183
+epoch: 252, test rmse, current time window: 1.549658
+epoch: 252, test rmse, future_state: 0.534993
+epoch: 253, train rmse, current time window: 3.436503
+epoch: 253, train rmse, future_state: 0.885695
+epoch: 253, test rmse, current time window: 1.514839
+epoch: 253, test rmse, future_state: 0.521683
+epoch: 254, train rmse, current time window: 3.480629
+epoch: 254, train rmse, future_state: 0.877323
+epoch: 254, test rmse, current time window: 1.521615
+epoch: 254, test rmse, future_state: 0.509738
+epoch: 255, train rmse, current time window: 3.550876
+epoch: 255, train rmse, future_state: 0.883382
+epoch: 255, test rmse, current time window: 1.488490
+epoch: 255, test rmse, future_state: 0.588033
+epoch: 256, train rmse, current time window: 3.569720
+epoch: 256, train rmse, future_state: 0.879990
+epoch: 256, test rmse, current time window: 1.466229
+epoch: 256, test rmse, future_state: 0.533207
+epoch: 257, train rmse, current time window: 3.580598
+epoch: 257, train rmse, future_state: 0.878365
+epoch: 257, test rmse, current time window: 1.544836
+epoch: 257, test rmse, future_state: 0.527674
+epoch: 258, train rmse, current time window: 3.608483
+epoch: 258, train rmse, future_state: 0.878217
+epoch: 258, test rmse, current time window: 1.545838
+epoch: 258, test rmse, future_state: 0.513531
+epoch: 259, train rmse, current time window: 3.550893
+epoch: 259, train rmse, future_state: 0.882581
+epoch: 259, test rmse, current time window: 1.497434
+epoch: 259, test rmse, future_state: 0.609348
+epoch: 260, train rmse, current time window: 3.528800
+epoch: 260, train rmse, future_state: 0.884844
+epoch: 260, test rmse, current time window: 1.470786
+epoch: 260, test rmse, future_state: 0.565330
+epoch: 261, train rmse, current time window: 3.460687
+epoch: 261, train rmse, future_state: 0.883697
+epoch: 261, test rmse, current time window: 1.500318
+epoch: 261, test rmse, future_state: 0.597982
+epoch: 262, train rmse, current time window: 3.562276
+epoch: 262, train rmse, future_state: 0.880230
+epoch: 262, test rmse, current time window: 1.518601
+epoch: 262, test rmse, future_state: 0.548526
+epoch: 263, train rmse, current time window: 3.568398
+epoch: 263, train rmse, future_state: 0.892604
+epoch: 263, test rmse, current time window: 1.584644
+epoch: 263, test rmse, future_state: 0.586781
+epoch: 264, train rmse, current time window: 3.524349
+epoch: 264, train rmse, future_state: 0.891290
+epoch: 264, test rmse, current time window: 1.510162
+epoch: 264, test rmse, future_state: 0.590238
+epoch: 265, train rmse, current time window: 3.501052
+epoch: 265, train rmse, future_state: 0.876680
+epoch: 265, test rmse, current time window: 1.490750
+epoch: 265, test rmse, future_state: 0.517536
+epoch: 266, train rmse, current time window: 3.448480
+epoch: 266, train rmse, future_state: 0.881921
+epoch: 266, test rmse, current time window: 1.569666
+epoch: 266, test rmse, future_state: 0.534100
+epoch: 267, train rmse, current time window: 3.450815
+epoch: 267, train rmse, future_state: 0.882707
+epoch: 267, test rmse, current time window: 1.486577
+epoch: 267, test rmse, future_state: 0.517724
+epoch: 268, train rmse, current time window: 3.508464
+epoch: 268, train rmse, future_state: 0.878397
+epoch: 268, test rmse, current time window: 1.503923
+epoch: 268, test rmse, future_state: 0.569783
+epoch: 269, train rmse, current time window: 3.531325
+epoch: 269, train rmse, future_state: 0.872437
+epoch: 269, test rmse, current time window: 1.453466
+epoch: 269, test rmse, future_state: 0.531991
+epoch: 270, train rmse, current time window: 3.553762
+epoch: 270, train rmse, future_state: 0.867934
+epoch: 270, test rmse, current time window: 1.531022
+epoch: 270, test rmse, future_state: 0.674407
+epoch: 271, train rmse, current time window: 3.578464
+epoch: 271, train rmse, future_state: 0.870341
+epoch: 271, test rmse, current time window: 1.335649
+epoch: 271, test rmse, future_state: 0.530691
+epoch: 272, train rmse, current time window: 3.583435
+epoch: 272, train rmse, future_state: 0.868984
+epoch: 272, test rmse, current time window: 1.429743
+epoch: 272, test rmse, future_state: 0.556766
+epoch: 273, train rmse, current time window: 3.472949
+epoch: 273, train rmse, future_state: 0.874465
+epoch: 273, test rmse, current time window: 1.476192
+epoch: 273, test rmse, future_state: 0.544741
+epoch: 274, train rmse, current time window: 3.494047
+epoch: 274, train rmse, future_state: 0.876417
+epoch: 274, test rmse, current time window: 1.481360
+epoch: 274, test rmse, future_state: 0.541358
+epoch: 275, train rmse, current time window: 3.422131
+epoch: 275, train rmse, future_state: 0.864277
+epoch: 275, test rmse, current time window: 1.504896
+epoch: 275, test rmse, future_state: 0.571582
+epoch: 276, train rmse, current time window: 3.484483
+epoch: 276, train rmse, future_state: 0.860020
+epoch: 276, test rmse, current time window: 1.516978
+epoch: 276, test rmse, future_state: 0.578914
+epoch: 277, train rmse, current time window: 3.481972
+epoch: 277, train rmse, future_state: 0.869788
+epoch: 277, test rmse, current time window: 1.509392
+epoch: 277, test rmse, future_state: 0.520510
+epoch: 278, train rmse, current time window: 3.424187
+epoch: 278, train rmse, future_state: 0.880726
+epoch: 278, test rmse, current time window: 1.474571
+epoch: 278, test rmse, future_state: 0.606495
+epoch: 279, train rmse, current time window: 3.440309
+epoch: 279, train rmse, future_state: 0.860583
+epoch: 279, test rmse, current time window: 1.512019
+epoch: 279, test rmse, future_state: 0.522634
+epoch: 280, train rmse, current time window: 3.378750
+epoch: 280, train rmse, future_state: 0.866139
+epoch: 280, test rmse, current time window: 1.601755
+epoch: 280, test rmse, future_state: 0.543484
+epoch: 281, train rmse, current time window: 3.486431
+epoch: 281, train rmse, future_state: 0.862041
+epoch: 281, test rmse, current time window: 1.628478
+epoch: 281, test rmse, future_state: 0.539992
+epoch: 282, train rmse, current time window: 3.499238
+epoch: 282, train rmse, future_state: 0.853672
+epoch: 282, test rmse, current time window: 1.563484
+epoch: 282, test rmse, future_state: 0.546691
+epoch: 283, train rmse, current time window: 3.459899
+epoch: 283, train rmse, future_state: 0.864903
+epoch: 283, test rmse, current time window: 1.492215
+epoch: 283, test rmse, future_state: 0.540897
+epoch: 284, train rmse, current time window: 3.413993
+epoch: 284, train rmse, future_state: 0.855425
+epoch: 284, test rmse, current time window: 1.486269
+epoch: 284, test rmse, future_state: 0.526612
+epoch: 285, train rmse, current time window: 3.481868
+epoch: 285, train rmse, future_state: 0.856975
+epoch: 285, test rmse, current time window: 1.517107
+epoch: 285, test rmse, future_state: 0.628684
+epoch: 286, train rmse, current time window: 3.371803
+epoch: 286, train rmse, future_state: 0.851161
+epoch: 286, test rmse, current time window: 1.427443
+epoch: 286, test rmse, future_state: 0.533642
+epoch: 287, train rmse, current time window: 3.395526
+epoch: 287, train rmse, future_state: 0.854745
+epoch: 287, test rmse, current time window: 1.409670
+epoch: 287, test rmse, future_state: 0.500086
+epoch: 288, train rmse, current time window: 3.427759
+epoch: 288, train rmse, future_state: 0.858870
+epoch: 288, test rmse, current time window: 1.469390
+epoch: 288, test rmse, future_state: 0.515274
+epoch: 289, train rmse, current time window: 3.358474
+epoch: 289, train rmse, future_state: 0.853939
+epoch: 289, test rmse, current time window: 1.607129
+epoch: 289, test rmse, future_state: 0.504585
+epoch: 290, train rmse, current time window: 3.393754
+epoch: 290, train rmse, future_state: 0.851529
+epoch: 290, test rmse, current time window: 1.470250
+epoch: 290, test rmse, future_state: 0.513642
+epoch: 291, train rmse, current time window: 3.363917
+epoch: 291, train rmse, future_state: 0.847897
+epoch: 291, test rmse, current time window: 1.491741
+epoch: 291, test rmse, future_state: 0.556767
+epoch: 292, train rmse, current time window: 3.411146
+epoch: 292, train rmse, future_state: 0.869043
+epoch: 292, test rmse, current time window: 1.479714
+epoch: 292, test rmse, future_state: 0.562842
+epoch: 293, train rmse, current time window: 3.371115
+epoch: 293, train rmse, future_state: 0.851542
+epoch: 293, test rmse, current time window: 1.446736
+epoch: 293, test rmse, future_state: 0.612552
+epoch: 294, train rmse, current time window: 3.410959
+epoch: 294, train rmse, future_state: 0.856506
+epoch: 294, test rmse, current time window: 1.466904
+epoch: 294, test rmse, future_state: 0.568260
+epoch: 295, train rmse, current time window: 3.450155
+epoch: 295, train rmse, future_state: 0.847800
+epoch: 295, test rmse, current time window: 1.502799
+epoch: 295, test rmse, future_state: 0.654145
+epoch: 296, train rmse, current time window: 3.390025
+epoch: 296, train rmse, future_state: 0.854649
+epoch: 296, test rmse, current time window: 1.449757
+epoch: 296, test rmse, future_state: 0.553083
+epoch: 297, train rmse, current time window: 3.374019
+epoch: 297, train rmse, future_state: 0.841229
+epoch: 297, test rmse, current time window: 1.575053
+epoch: 297, test rmse, future_state: 0.574537
+epoch: 298, train rmse, current time window: 3.400794
+epoch: 298, train rmse, future_state: 0.839950
+epoch: 298, test rmse, current time window: 1.430923
+epoch: 298, test rmse, future_state: 0.555965
+epoch: 299, train rmse, current time window: 3.501604
+epoch: 299, train rmse, future_state: 0.835601
+epoch: 299, test rmse, current time window: 1.469380
+epoch: 299, test rmse, future_state: 0.658835
+epoch: 300, train rmse, current time window: 3.345103
+epoch: 300, train rmse, future_state: 0.843983
+epoch: 300, test rmse, current time window: 1.529027
+epoch: 300, test rmse, future_state: 0.546386
+epoch: 301, train rmse, current time window: 3.348467
+epoch: 301, train rmse, future_state: 0.835586
+epoch: 301, test rmse, current time window: 1.422454
+epoch: 301, test rmse, future_state: 0.517321
+epoch: 302, train rmse, current time window: 3.402610
+epoch: 302, train rmse, future_state: 0.840026
+epoch: 302, test rmse, current time window: 1.455002
+epoch: 302, test rmse, future_state: 0.545394
+epoch: 303, train rmse, current time window: 3.319625
+epoch: 303, train rmse, future_state: 0.845808
+epoch: 303, test rmse, current time window: 1.504931
+epoch: 303, test rmse, future_state: 0.503435
+epoch: 304, train rmse, current time window: 3.353990
+epoch: 304, train rmse, future_state: 0.852614
+epoch: 304, test rmse, current time window: 1.417168
+epoch: 304, test rmse, future_state: 0.570752
+epoch: 305, train rmse, current time window: 3.433456
+epoch: 305, train rmse, future_state: 0.847300
+epoch: 305, test rmse, current time window: 1.493147
+epoch: 305, test rmse, future_state: 0.581353
+epoch: 306, train rmse, current time window: 3.429967
+epoch: 306, train rmse, future_state: 0.844891
+epoch: 306, test rmse, current time window: 1.411085
+epoch: 306, test rmse, future_state: 0.565177
+epoch: 307, train rmse, current time window: 3.394135
+epoch: 307, train rmse, future_state: 0.841101
+epoch: 307, test rmse, current time window: 1.502488
+epoch: 307, test rmse, future_state: 0.498023
+epoch: 308, train rmse, current time window: 3.417131
+epoch: 308, train rmse, future_state: 0.825731
+epoch: 308, test rmse, current time window: 1.463281
+epoch: 308, test rmse, future_state: 0.509384
+epoch: 309, train rmse, current time window: 3.382401
+epoch: 309, train rmse, future_state: 0.836055
+epoch: 309, test rmse, current time window: 1.505343
+epoch: 309, test rmse, future_state: 0.508560
+epoch: 310, train rmse, current time window: 3.351521
+epoch: 310, train rmse, future_state: 0.840003
+epoch: 310, test rmse, current time window: 1.486513
+epoch: 310, test rmse, future_state: 0.495847
+epoch: 311, train rmse, current time window: 3.435186
+epoch: 311, train rmse, future_state: 0.837285
+epoch: 311, test rmse, current time window: 1.502873
+epoch: 311, test rmse, future_state: 0.563519
+epoch: 312, train rmse, current time window: 3.410351
+epoch: 312, train rmse, future_state: 0.827885
+epoch: 312, test rmse, current time window: 1.594007
+epoch: 312, test rmse, future_state: 0.536340
+epoch: 313, train rmse, current time window: 3.589351
+epoch: 313, train rmse, future_state: 0.826211
+epoch: 313, test rmse, current time window: 1.551287
+epoch: 313, test rmse, future_state: 0.530116
+epoch: 314, train rmse, current time window: 3.437125
+epoch: 314, train rmse, future_state: 0.841531
+epoch: 314, test rmse, current time window: 1.514183
+epoch: 314, test rmse, future_state: 0.490032
